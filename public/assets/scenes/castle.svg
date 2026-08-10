@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Fairytale castle valley">
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#72c8f4"/><stop offset=".6" stop-color="#c8ecfb"/><stop offset="1" stop-color="#f7d8c4"/></linearGradient>
+ <linearGradient id="hill" x2="0" y2="1"><stop stop-color="#7fb968"/><stop offset="1" stop-color="#386b45"/></linearGradient>
+ <linearGradient id="path" x2="1" y2="1"><stop stop-color="#eacb8c"/><stop offset="1" stop-color="#b9824c"/></linearGradient>
+ <filter id="soft"><feGaussianBlur stdDeviation="8"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#sky)"/>
+<g fill="#fff" opacity=".78" filter="url(#soft)"><ellipse cx="250" cy="145" rx="145" ry="44"/><ellipse cx="1050" cy="118" rx="180" ry="50"/><ellipse cx="1390" cy="205" rx="120" ry="38"/></g>
+<path d="M0 500 Q250 330 500 460T950 420T1600 400V900H0Z" fill="#7fa66d" opacity=".72"/>
+<path d="M0 590 Q320 420 700 570T1200 500T1600 520V900H0Z" fill="url(#hill)"/>
+<path d="M710 900 Q720 720 870 610 Q970 535 1040 470 L1130 475 Q1030 570 960 650 Q870 755 900 900Z" fill="url(#path)" opacity=".93"/>
+<g transform="translate(1010 185)">
+ <rect x="0" y="210" width="330" height="220" rx="10" fill="#e6d7c0" stroke="#8d755f" stroke-width="10"/>
+ <rect x="55" y="110" width="75" height="320" fill="#e8dbc5" stroke="#8d755f" stroke-width="9"/><rect x="210" y="95" width="75" height="335" fill="#e8dbc5" stroke="#8d755f" stroke-width="9"/>
+ <path d="M43 112L93 25l50 87z" fill="#a95774" stroke="#7d3f55" stroke-width="8"/><path d="M198 97L248 5l50 92z" fill="#a95774" stroke="#7d3f55" stroke-width="8"/>
+ <path d="M140 210h55V75l28-60 28 60v135" fill="#eee0c8" stroke="#8d755f" stroke-width="8"/><path d="M132 78l35-72 35 72z" fill="#b45c82"/>
+ <path d="M135 430v-105q30-60 62 0v105" fill="#644b43"/><g fill="#78b9d2"><rect x="78" y="175" width="25" height="45" rx="12"/><rect x="235" y="162" width="25" height="45" rx="12"/><rect x="165" y="235" width="30" height="45" rx="13"/></g>
+</g>
+<g opacity=".9"><circle cx="160" cy="650" r="160" fill="#2f6f3d"/><circle cx="80" cy="610" r="120" fill="#4d8c48"/><circle cx="1470" cy="650" r="180" fill="#356e3b"/><circle cx="1540" cy="590" r="125" fill="#568e47"/></g>
+<g fill="#ef9abd"><circle cx="120" cy="735" r="12"/><circle cx="180" cy="700" r="9"/><circle cx="1430" cy="730" r="13"/><circle cx="1510" cy="680" r="10"/></g>
+</svg>
