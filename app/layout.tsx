@@ -6,6 +6,7 @@ import "./polish.css";
 import "./scenes.css";
 import "./final.css";
 import "./painted.css";
+import "./scene-lock.css";
 
 export const metadata: Metadata = {
   title: "Princess and the Prepo",
