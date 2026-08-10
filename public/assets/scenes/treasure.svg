@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Warm treasure chamber with a golden chest">
+<defs><linearGradient id="wall" x2="0" y2="1"><stop stop-color="#5b3d31"/><stop offset="1" stop-color="#241d1b"/></linearGradient><linearGradient id="floor" x2="0" y2="1"><stop stop-color="#775036"/><stop offset="1" stop-color="#3a281e"/></linearGradient><radialGradient id="lamp"><stop stop-color="#ffd77f" stop-opacity=".9"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient></defs>
+<rect width="1600" height="900" fill="url(#wall)"/><g stroke="#7c5b4a" stroke-width="8" opacity=".55"><path d="M0 170H1600M0 350H1600M0 530H1600"/><path d="M180 0V530M430 0V530M700 0V530M990 0V530M1280 0V530"/></g>
+<ellipse cx="1130" cy="310" rx="420" ry="360" fill="url(#lamp)"/><path d="M0 560H1600V900H0Z" fill="url(#floor)"/><g opacity=".25" stroke="#cf9e68" stroke-width="8"><path d="M0 690H1600M0 810H1600"/><path d="M260 560L220 900M580 560L610 900M930 560L900 900M1260 560L1320 900"/></g>
+<g transform="translate(1010 440)"><rect x="0" y="115" width="280" height="180" rx="22" fill="#a76527" stroke="#5d3318" stroke-width="15"/><path d="M0 125Q140-145 280 125Z" fill="#b8732d" stroke="#5d3318" stroke-width="15"/><rect x="125" y="100" width="35" height="205" rx="8" fill="#e2b448" stroke="#8b5c18" stroke-width="8"/><circle cx="143" cy="185" r="22" fill="#ffe16d" stroke="#83571c" stroke-width="7"/></g>
+<g fill="#e3ad39"><circle cx="880" cy="760" r="18"/><circle cx="920" cy="780" r="13"/><circle cx="1360" cy="735" r="16"/><circle cx="1410" cy="780" r="11"/></g>
+<g><path d="M220 170h85v180h-85z" fill="#2a1a17"/><path d="M205 175h115" stroke="#c99850" stroke-width="13"/><circle cx="262" cy="170" r="70" fill="url(#lamp)"/></g>
+<g opacity=".6"><path d="M90 580q70-110 140 0" fill="#2f211b"/><path d="M410 580q80-130 160 0" fill="#2f211b"/></g>
+</svg>
