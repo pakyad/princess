@@ -1,0 +1,183 @@
+/* STRICT SCENE LOCK
+   This file intentionally loads last. It prevents responsive/theme fallbacks
+   from changing an approved scene crop after it has been designed. */
+
+html, body { min-height: 100%; }
+body {
+  margin: 0;
+  background: #231914;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* Treat the educational game like a composed storybook canvas. The complete
+   UI scales as one unit instead of rearranging into a different design. */
+.game-stage {
+  width: min(100vw, calc(100svh * 16 / 9)) !important;
+  height: min(100svh, calc(100vw * 9 / 16)) !important;
+  min-height: 0 !important;
+  max-height: 100svh !important;
+  aspect-ratio: 16 / 9;
+  margin: auto;
+  overflow: hidden !important;
+  position: relative;
+  isolation: isolate;
+}
+
+.environment {
+  inset: 0 !important;
+  transform: none !important;
+  filter: saturate(1.04) contrast(1.02) !important;
+  background-repeat: no-repeat !important;
+}
+
+/* TITLE — approved title/castle crop. */
+.game-stage:has(.title-card) .environment {
+  background-size: 300% 232% !important;
+  background-position: 0% 0% !important;
+}
+
+/* INTRO — approved adventure-map crop. Never reuse title artwork here. */
+.game-stage.theme--castle:has(.intro-panel) .environment {
+  background-size: 300% 232% !important;
+  background-position: 50% 0% !important;
+}
+
+/* RIVER / ON */
+.game-stage.theme--river .environment,
+.game-stage.theme--river .picture-window {
+  background-size: 300% 232% !important;
+  background-position: 100% 0% !important;
+}
+.game-stage.theme--river .picture-window {
+  background-size: 310% 235% !important;
+}
+
+/* FOREST / UNDER */
+.game-stage.theme--forest .environment,
+.game-stage.theme--forest .picture-window {
+  background-size: 600% 320% !important;
+  background-position: 35% 59% !important;
+}
+.game-stage.theme--forest .picture-window {
+  background-size: 610% 325% !important;
+}
+
+/* TREASURE / IN */
+.game-stage.theme--treasure .environment,
+.game-stage.theme--treasure .picture-window {
+  background-size: 590% 270% !important;
+  background-position: 67% 7% !important;
+}
+
+/* GATE / NEXT TO */
+.game-stage.theme--gate .environment,
+.game-stage.theme--gate .picture-window,
+.game-stage.theme--gate .drag-board {
+  background-size: 560% 270% !important;
+  background-position: 49% 18% !important;
+}
+
+/* BRIDGE — choice, builder and physical-kit challenge are all deliberately
+   part of the same chapter world. The UI changes; the environment does not. */
+.game-stage.theme--bridge .environment,
+.game-stage.theme--bridge .picture-window,
+.game-stage.theme--bridge-under .environment,
+.game-stage.theme--bridge-under .picture-window,
+.game-stage.theme--camp .environment {
+  background-size: 550% 270% !important;
+  background-position: 57% 19% !important;
+}
+
+/* FINAL GARDEN REVIEW */
+.game-stage.theme--final .environment,
+.game-stage.theme--final .picture-window {
+  background-size: 555% 270% !important;
+  background-position: 69% 18% !important;
+}
+
+/* ENDING — separate celebration crop, never a generic garden fallback. */
+.game-stage.theme--garden:has(.ending-panel) .environment {
+  background-size: 300% 232% !important;
+  background-position: 100% 100% !important;
+}
+
+/* Painted art contains Princess and key props. Never draw CSS stand-ins over
+   the approved composition. */
+.world-left > .princess,
+.picture-window > .princess,
+.scene-objects {
+  display: none !important;
+}
+
+/* Keep the UI composition stable. This deliberately overrides the earlier
+   responsive stack, which was changing the design and exposing bad crops. */
+.world-left {
+  inset: 0 43% 0 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+.question-panel {
+  right: 1.4% !important;
+  left: auto !important;
+  top: 7.2% !important;
+  bottom: auto !important;
+  width: 40.8% !important;
+  max-height: 90% !important;
+  overflow: auto;
+}
+.story-panel {
+  left: 1.2% !important;
+  top: 2.2% !important;
+  width: 35.5% !important;
+  max-height: 27% !important;
+  overflow: auto;
+}
+.world-controls {
+  top: 1.1% !important;
+  right: 1% !important;
+  z-index: 40 !important;
+}
+.teacher-panel {
+  top: 9% !important;
+  right: 1.5% !important;
+  max-height: 84% !important;
+}
+
+/* Intro/title are special compositions and get their own locked placement. */
+.game-stage:has(.title-card) .title-card {
+  left: 5% !important;
+  right: auto !important;
+  top: 20% !important;
+  width: 36% !important;
+}
+.game-stage.theme--castle:has(.intro-panel) .world-left {
+  inset: 0 50% 0 0 !important;
+}
+.game-stage.theme--castle:has(.intro-panel) .question-panel {
+  width: 41% !important;
+}
+
+/* Do not replace locked artwork with cover/center rules at smaller widths.
+   Scale the whole 16:9 canvas instead. */
+@media (max-width: 980px), (max-height: 620px) {
+  .environment { transform: none !important; }
+  .world-left { inset: 0 43% 0 0 !important; }
+  .question-panel {
+    right: 1.4% !important;
+    top: 7.2% !important;
+    bottom: auto !important;
+    width: 40.8% !important;
+    max-height: 90% !important;
+  }
+  .story-panel {
+    top: 2.2% !important;
+    max-height: 27% !important;
+  }
+  .world-controls {
+    position: absolute !important;
+    top: 1.1% !important;
+    right: 1% !important;
+  }
+}
