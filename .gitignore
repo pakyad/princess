@@ -1,0 +1,23 @@
+# dependencies
+/node_modules/
+
+# Next.js output
+/.next/
+/out/
+
+# tests and generated reports
+/coverage/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# local environment and logs
+.env*
+!.env.example
+*.log
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
