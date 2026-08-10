@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./polish.css";
+import "./scenes.css";
 
 export const metadata: Metadata = {
   title: "Princess and the Prepo",
