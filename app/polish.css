@@ -1,0 +1,203 @@
+/* Production visual polish layer. Kept separate from the base game CSS so the
+   working MVP styles stay easy to audit and revert. */
+
+.game-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+  border: clamp(7px, 1vw, 15px) solid rgba(113, 62, 21, .72);
+  box-shadow:
+    inset 0 0 0 3px rgba(247, 211, 120, .8),
+    inset 0 0 55px rgba(31, 17, 9, .28);
+}
+
+.game-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(18, 10, 17, .14), transparent 35%, transparent 66%, rgba(18, 10, 17, .12)),
+    radial-gradient(circle at 30% 22%, transparent 0 34%, rgba(23, 13, 15, .18) 100%);
+}
+
+/* Give every chapter a clearly different atmosphere while retaining the same
+   painterly source until dedicated scene paintings are supplied. */
+.theme--castle .environment {
+  filter: saturate(1.08) brightness(1.06) contrast(.98);
+  background-position: 38% center;
+}
+.theme--river .environment {
+  filter: saturate(1.08) brightness(1.02);
+  background-position: center 58%;
+}
+.theme--forest .environment {
+  filter: hue-rotate(30deg) saturate(.9) brightness(.57) contrast(1.08);
+  background-position: 28% center;
+}
+.theme--treasure .environment {
+  filter: sepia(.38) hue-rotate(338deg) saturate(.82) brightness(.46) contrast(1.14);
+  background-position: 17% center;
+}
+.theme--gate .environment {
+  filter: hue-rotate(303deg) saturate(1.14) brightness(.9);
+  background-position: 80% center;
+}
+.theme--bridge .environment,
+.theme--bridge-under .environment {
+  filter: hue-rotate(156deg) saturate(.72) brightness(.67) contrast(1.06);
+  background-position: center 68%;
+}
+.theme--final .environment {
+  filter: saturate(1.1) brightness(.82) contrast(1.05);
+  background-position: 33% center;
+}
+.theme--garden .environment {
+  filter: saturate(1.42) brightness(1.13) contrast(.96);
+  transform: scale(1.07);
+}
+
+/* Parchment feels more like an object from the story world. */
+.parchment {
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 246, 202, .62), transparent 28%),
+    linear-gradient(128deg, #fcebb4 0%, #f0d28d 52%, #dfb965 100%);
+  border-color: #7e4719;
+  box-shadow:
+    inset 0 0 0 3px #ffe7a5,
+    inset 0 0 34px rgba(132, 74, 26, .28),
+    0 13px 28px rgba(25, 15, 13, .32);
+}
+.parchment::before,
+.parchment::after {
+  box-shadow: inset 0 0 0 2px rgba(255, 221, 123, .55), 0 3px 5px rgba(32, 18, 9, .25);
+}
+
+.story-panel {
+  transform: rotate(-.25deg);
+  backdrop-filter: blur(1px);
+}
+
+.question-panel {
+  border-width: 6px;
+  box-shadow:
+    inset 0 0 0 3px #ffe7a5,
+    inset 0 0 38px rgba(130, 71, 22, .27),
+    0 16px 36px rgba(23, 13, 17, .36);
+}
+.question-panel::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(129, 74, 24, .32);
+  border-radius: 11px;
+  pointer-events: none;
+}
+
+.ribbon {
+  overflow: visible;
+  background: linear-gradient(#e767a9 0%, #b34483 48%, #80265f 100%);
+  box-shadow: inset 0 0 0 2px rgba(255, 193, 222, .55), 0 6px 0 #653619, 0 9px 18px rgba(30, 13, 24, .28);
+}
+.ribbon::before,
+.ribbon::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  width: 30px;
+  height: 34px;
+  z-index: -1;
+  background: #8f2c69;
+  border: 3px solid #78421f;
+}
+.ribbon::before { left: -23px; transform: skewY(18deg); }
+.ribbon::after { right: -23px; transform: skewY(-18deg); }
+
+.answers button {
+  letter-spacing: .015em;
+  text-shadow: 0 1px rgba(255,255,255,.25);
+  box-shadow:
+    inset 0 0 0 3px #fbe2e9,
+    inset 0 -9px 14px rgba(137, 50, 94, .10),
+    0 5px 0 #633464,
+    0 9px 14px rgba(48, 18, 41, .18);
+}
+.answers button:focus-visible { outline-color: #fff4a6; }
+.answers button.is-selected:not(.is-correct) {
+  background: linear-gradient(#ffc1bd, #df7b7b);
+}
+.answers button.is-correct {
+  background: linear-gradient(#d2f39a, #69bd63);
+  box-shadow: inset 0 0 0 3px #efffd5, 0 5px 0 #42773e, 0 0 24px rgba(229,255,130,.4);
+}
+
+.primary-button,
+.secondary-button {
+  min-height: 54px;
+  letter-spacing: .055em;
+  box-shadow: inset 0 0 0 3px #f4a5ce, 0 6px 0 #643154, 0 10px 18px rgba(46, 20, 39, .24);
+}
+.primary-button:hover,
+.secondary-button:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.primary-button:active,
+.secondary-button:active { transform: translateY(4px); box-shadow: inset 0 0 0 3px #f4a5ce, 0 2px 0 #643154; }
+
+/* More cinematic chapter-specific foreground lighting. */
+.theme--forest .mist {
+  background:
+    linear-gradient(rgba(9, 34, 18, .26), rgba(8, 20, 13, .32)),
+    radial-gradient(circle at 45% 36%, transparent 0 18%, rgba(8, 14, 10, .35) 82%);
+}
+.theme--treasure .mist {
+  background:
+    radial-gradient(circle at 37% 52%, rgba(255, 193, 78, .16), transparent 18%),
+    linear-gradient(90deg, rgba(18, 9, 7, .23), rgba(21, 11, 12, .42));
+}
+.theme--gate .mist {
+  background: radial-gradient(circle at 68% 32%, rgba(250, 179, 241, .17), transparent 18%), linear-gradient(rgba(25,15,33,.08), rgba(20,11,30,.2));
+}
+.theme--garden .mist {
+  background: radial-gradient(circle at 54% 28%, rgba(255, 251, 176, .18), transparent 28%), linear-gradient(rgba(255,255,255,.02), rgba(51,94,37,.08));
+}
+
+.feedback {
+  border-width: 4px;
+  transform-origin: left bottom;
+}
+.feedback--wrong,
+.feedback--hint { box-shadow: inset 0 0 0 3px #ffe7a5, inset 0 0 28px rgba(130,71,22,.25), 0 12px 28px rgba(37,15,15,.3); }
+.feedback--correct { box-shadow: inset 0 0 0 3px #fff0b2, inset 0 0 28px rgba(72,123,46,.18), 0 0 28px rgba(255,232,104,.26); }
+
+.world-controls button,
+.reward {
+  backdrop-filter: blur(6px);
+  border-width: 2px;
+}
+
+/* Tablet landscape / classroom screens stay intentionally close to the
+   reference's left-world + right-question composition. */
+@media (min-width: 821px) and (max-aspect-ratio: 4/3) {
+  .world-left { inset: 0 45% 0 0; }
+  .question-panel { right: 1.5%; width: 42%; }
+  .story-panel { width: min(92%, 30rem); }
+  .princess { transform: scale(.9); transform-origin: bottom left; }
+}
+
+@media (max-width: 820px) {
+  .game-stage::before { position: fixed; }
+  .question-panel { box-shadow: inset 0 0 0 3px #ffe7a5, inset 0 0 30px rgba(130,71,22,.22), 0 12px 28px rgba(23,13,17,.28); }
+  .story-panel { width: 92%; }
+  .answers { gap: .7rem; }
+  .answers button { min-height: 62px; }
+}
+
+@media (max-width: 500px) {
+  .game-stage::before { border-width: 5px; }
+  .story-panel { left: 4%; width: 92%; }
+  .question-panel { width: 94%; padding-left: 1rem; padding-right: 1rem; }
+  .ribbon { left: 14%; right: 14%; }
+  .answers button span { width: 52px; height: 52px; font-size: 1.55rem; }
+}
