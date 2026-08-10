@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Enchanted forest with a fallen tree">
+<defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#3f8067"/><stop offset=".55" stop-color="#274f3d"/><stop offset="1" stop-color="#172f28"/></linearGradient><linearGradient id="ground" x2="0" y2="1"><stop stop-color="#5e7d49"/><stop offset="1" stop-color="#273d2c"/></linearGradient><radialGradient id="glow"><stop stop-color="#fff4a9"/><stop offset="1" stop-color="#fff4a900"/></radialGradient></defs>
+<rect width="1600" height="900" fill="url(#bg)"/><path d="M0 580Q260 490 470 570T890 535T1260 575T1600 520V900H0Z" fill="url(#ground)"/>
+<g opacity=".92" fill="#173c2a"><path d="M110 0h170l-25 480-120 0z"/><path d="M420 0h145l-30 505-110 0z"/><path d="M1040 0h165l-35 520-115 0z"/><path d="M1360 0h150l-30 500-105 0z"/></g>
+<g fill="#2b6540"><circle cx="120" cy="120" r="210"/><circle cx="370" cy="100" r="190"/><circle cx="730" cy="90" r="240"/><circle cx="1110" cy="110" r="210"/><circle cx="1460" cy="95" r="235"/></g>
+<g fill="#438352" opacity=".85"><circle cx="250" cy="200" r="105"/><circle cx="585" cy="160" r="130"/><circle cx="930" cy="180" r="115"/><circle cx="1290" cy="175" r="120"/></g>
+<path d="M220 690 Q600 570 1110 670" stroke="#6c4324" stroke-width="95" stroke-linecap="round" fill="none"/><path d="M565 625l-55-170" stroke="#5a351d" stroke-width="38" stroke-linecap="round"/><path d="M870 628l70-175" stroke="#5a351d" stroke-width="34" stroke-linecap="round"/>
+<path d="M0 845Q430 745 810 820T1600 770V900H0Z" fill="#203428" opacity=".62"/>
+<g fill="#e987aa"><circle cx="120" cy="760" r="13"/><circle cx="160" cy="795" r="9"/><circle cx="1230" cy="745" r="12"/><circle cx="1300" cy="795" r="10"/></g><g fill="#f4d45d"><circle cx="390" cy="330" r="6"/><circle cx="780" cy="260" r="5"/><circle cx="990" cy="355" r="7"/><circle cx="1430" cy="290" r="5"/></g>
+<g opacity=".35"><circle cx="520" cy="330" r="140" fill="url(#glow)"/><circle cx="1030" cy="270" r="120" fill="url(#glow)"/></g>
+</svg>
