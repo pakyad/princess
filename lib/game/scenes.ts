@@ -1,5 +1,7 @@
 import type { Answer, Hotspot, SceneDefinition } from "./types";
 
+const imagePath = (filename: string) => `/princess/exact/${filename}.png`;
+
 const answerHotspot = (label: string, answer: Answer, x: number, y: number, width: number, height: number): Hotspot => ({
   label,
   answer,
@@ -13,7 +15,7 @@ const answerHotspot = (label: string, answer: Answer, x: number, y: number, widt
 export const scenes: readonly SceneDefinition[] = [
   {
     id: "title",
-    image: "/exact/title.png",
+    image: imagePath("title"),
     alt: "Princess and the Prepo. An interactive adventure to learn prepositions in a magical way. Start Adventure.",
     width: 512,
     height: 322,
@@ -21,7 +23,7 @@ export const scenes: readonly SceneDefinition[] = [
   },
   {
     id: "river",
-    image: "/exact/river.png",
+    image: imagePath("river"),
     alt: "Across the River. The princess can walk blank the stones to cross the river. Choices: A, in; B, on; C, under.",
     width: 491,
     height: 322,
@@ -34,7 +36,7 @@ export const scenes: readonly SceneDefinition[] = [
   },
   {
     id: "forest",
-    image: "/exact/forest.png",
+    image: imagePath("forest"),
     alt: "Under the Tree. The princess can walk blank the fallen tree. Choices: A, on; B, under; C, next to.",
     width: 494,
     height: 322,
@@ -47,7 +49,7 @@ export const scenes: readonly SceneDefinition[] = [
   },
   {
     id: "treasure",
-    image: "/exact/treasure.png",
+    image: imagePath("treasure"),
     alt: "In the Treasure Room. The treasure is blank the chest. Choices: A, in; B, on; C, next to.",
     width: 512,
     height: 303,
@@ -60,7 +62,7 @@ export const scenes: readonly SceneDefinition[] = [
   },
   {
     id: "gate",
-    image: "/exact/gate.png",
+    image: imagePath("gate"),
     alt: "Next to the Gate. The princess is standing blank the gate. Choices: A, on; B, next to; C, under.",
     width: 491,
     height: 303,
@@ -73,7 +75,7 @@ export const scenes: readonly SceneDefinition[] = [
   },
   {
     id: "bridge",
-    image: "/exact/bridge.png",
+    image: imagePath("bridge"),
     alt: "Over the Bridge. The princess can walk blank the bridge. Choices: A, in; B, over; C, under.",
     width: 494,
     height: 303,
@@ -86,7 +88,7 @@ export const scenes: readonly SceneDefinition[] = [
   },
   {
     id: "garden",
-    image: "/exact/garden.png",
+    image: imagePath("garden"),
     alt: "In the Garden. The princess is walking blank the flowers. Choices: A, in; B, on; C, next to.",
     width: 512,
     height: 293,
@@ -99,7 +101,7 @@ export const scenes: readonly SceneDefinition[] = [
   },
   {
     id: "ending",
-    image: "/exact/ending.png",
+    image: imagePath("ending"),
     alt: "Level Complete. Great job, Princess! You earned three stars. Choose Replay or Next Level.",
     width: 419,
     height: 293,
