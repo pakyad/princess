@@ -1,41 +1,31 @@
-export type GameStatus = "idle" | "question" | "wrong" | "hint" | "correct" | "animating" | "complete" | "transitioning";
-export type Interaction = "intro" | "choice" | "drag" | "builder" | "hybrid" | "ending";
+export type Answer = "in" | "on" | "under" | "next to" | "over";
 
-export interface Choice { id: string; label: string }
+export interface Hotspot {
+  readonly label: string;
+  readonly x: number;
+  readonly y: number;
+  readonly width: number;
+  readonly height: number;
+  readonly action: "start" | "answer" | "replay" | "next";
+  readonly answer?: Answer;
+}
+
 export interface SceneDefinition {
-  id: string;
-  chapter: string;
-  interaction: Interaction;
-  objective: string;
-  question?: string;
-  choices?: Choice[];
-  correct?: string;
-  sentence?: string;
-  wrong?: string;
-  hint?: string;
-  oralPrompt?: string;
-  physicalPrompt?: string;
-  theme: string;
+  readonly id: string;
+  readonly image: string;
+  readonly alt: string;
+  readonly width: number;
+  readonly height: number;
+  readonly correct?: Answer;
+  readonly hotspots: readonly Hotspot[];
 }
 
 export interface GameState {
-  sceneIndex: number;
-  status: GameStatus;
-  attempts: number;
-  selected: string | null;
-  completed: readonly string[];
-  stars: number;
-  soundOn: boolean;
-  teacherOpen: boolean;
-  practice: boolean;
+  readonly sceneIndex: number;
 }
 
 export type GameAction =
-  | { type: "START" }
-  | { type: "ANSWER"; answer: string; correct: string; sceneId: string }
-  | { type: "REACTION_FINISHED" }
-  | { type: "CONTINUE" }
-  | { type: "TOGGLE_SOUND" }
-  | { type: "TOGGLE_TEACHER" }
-  | { type: "REPLAY" }
-  | { type: "PRACTICE" };
+  | { readonly type: "START" }
+  | { readonly type: "ANSWER"; readonly answer: Answer; readonly correct: Answer }
+  | { readonly type: "REPLAY" }
+  | { readonly type: "NEXT" };
