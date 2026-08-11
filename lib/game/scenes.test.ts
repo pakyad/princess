@@ -47,7 +47,7 @@ describe("locked learning flow registry", () => {
   });
 
   it("keeps the generated supporting artwork locked to the literal atlas", () => {
-    const atlasScenes = scenes.filter(({ image }) => image === "/exact/learning-flow.png");
+    const atlasScenes = scenes.filter(({ image }) => image === "/exact/learning-flow.svg");
     expect(atlasScenes.map(({ id }) => id)).toEqual([
       "word-scattering",
       "sentence-reconstruction",
