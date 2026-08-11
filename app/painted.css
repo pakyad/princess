@@ -1,0 +1,192 @@
+/* Painted-reference rebuild.
+   Uses the generated visual direction itself as an image atlas instead of
+   recreating it with flat SVG landscapes. Game logic and semantic controls
+   remain real HTML above this layer. */
+
+.environment {
+  background-image: var(--painted-atlas) !important;
+  background-repeat: no-repeat !important;
+  filter: saturate(1.05) contrast(1.02) !important;
+  transform: scale(1.025) !important;
+  image-rendering: auto;
+}
+
+/* The atlas is the generated A-to-Z visual board:
+   top-left = title/castle, top-middle = adventure map,
+   top-right = river lesson, middle-left = river success,
+   middle-middle = forest lesson. */
+.theme--castle .environment {
+  background-size: 300% 232% !important;
+  background-position: 0% 0% !important;
+}
+.theme--river .environment {
+  background-size: 300% 232% !important;
+  background-position: 100% 0% !important;
+}
+.theme--forest .environment,
+.theme--camp .environment {
+  background-size: 600% 320% !important;
+  background-position: 35% 59% !important;
+}
+.theme--treasure .environment {
+  background-size: 590% 270% !important;
+  background-position: 67% 7% !important;
+}
+.theme--gate .environment {
+  background-size: 560% 270% !important;
+  background-position: 49% 18% !important;
+}
+.theme--bridge .environment,
+.theme--bridge-under .environment {
+  background-size: 550% 270% !important;
+  background-position: 57% 19% !important;
+}
+.theme--final .environment,
+.theme--garden .environment {
+  background-size: 555% 270% !important;
+  background-position: 69% 18% !important;
+}
+
+/* Do not place the old vector Princess or old vector scenery on top of the
+   painted compositions. Those layers were the visible quality mismatch. */
+.world-left > .princess,
+.picture-window > .princess,
+.scene-objects {
+  display: none !important;
+}
+
+/* Question previews also use the painted atlas, cropped to the relevant
+   chapter instead of a second low-detail SVG scene. */
+.picture-window {
+  background-image: var(--painted-atlas) !important;
+  background-repeat: no-repeat !important;
+  filter: saturate(1.05) contrast(1.03);
+}
+.theme--river .picture-window {
+  background-size: 310% 235% !important;
+  background-position: 100% 0% !important;
+}
+.theme--forest .picture-window,
+.theme--camp .picture-window {
+  background-size: 610% 325% !important;
+  background-position: 35% 59% !important;
+}
+.theme--treasure .picture-window {
+  background-size: 590% 270% !important;
+  background-position: 67% 7% !important;
+}
+.theme--gate .picture-window {
+  background-size: 560% 270% !important;
+  background-position: 49% 18% !important;
+}
+.theme--bridge .picture-window,
+.theme--bridge-under .picture-window {
+  background-size: 550% 270% !important;
+  background-position: 57% 19% !important;
+}
+.theme--final .picture-window,
+.theme--garden .picture-window {
+  background-size: 555% 270% !important;
+  background-position: 69% 18% !important;
+}
+
+/* Reduce overlays so the painted artwork is actually visible. */
+.mist {
+  background: linear-gradient(90deg, rgba(30, 18, 20, .06), rgba(14, 11, 15, .12)) !important;
+}
+.world-left {
+  background: linear-gradient(90deg, rgba(255,255,255,.01), transparent 76%);
+}
+.story-panel,
+.question-panel,
+.feedback {
+  backdrop-filter: blur(2px);
+}
+
+/* The intro should feel like the generated product rather than an empty
+   landscape. Keep the explanatory card tighter so the painted castle/title
+   composition remains visible. */
+.theme--castle .story-panel {
+  width: min(34rem, 92%);
+}
+.theme--castle .question-panel {
+  background: linear-gradient(135deg, rgba(255,248,224,.96), rgba(247,216,151,.94));
+}
+
+/* In the River scene, preserve the strong left-world/right-question layout
+   from the user's preferred reference. */
+.theme--river .world-left,
+.theme--forest .world-left,
+.theme--treasure .world-left,
+.theme--gate .world-left,
+.theme--bridge .world-left,
+.theme--bridge-under .world-left,
+.theme--final .world-left {
+  inset: 0 43% 0 0;
+}
+.theme--river .question-panel,
+.theme--forest .question-panel,
+.theme--treasure .question-panel,
+.theme--gate .question-panel,
+.theme--bridge .question-panel,
+.theme--bridge-under .question-panel,
+.theme--final .question-panel {
+  right: 1.6%;
+  width: 40.5%;
+}
+
+/* Prevent controls from covering the question ribbon at common laptop sizes. */
+.world-controls {
+  top: .65rem;
+  right: .7rem;
+  z-index: 30;
+}
+.question-panel {
+  top: 3.8rem;
+  max-height: calc(100svh - 5rem);
+  overflow: auto;
+}
+
+@media (max-width: 980px) {
+  .theme--river .world-left,
+  .theme--forest .world-left,
+  .theme--treasure .world-left,
+  .theme--gate .world-left,
+  .theme--bridge .world-left,
+  .theme--bridge-under .world-left,
+  .theme--final .world-left {
+    inset: 0 0 48% 0;
+  }
+  .theme--river .question-panel,
+  .theme--forest .question-panel,
+  .theme--treasure .question-panel,
+  .theme--gate .question-panel,
+  .theme--bridge .question-panel,
+  .theme--bridge-under .question-panel,
+  .theme--final .question-panel {
+    width: 94%;
+    right: 3%;
+    top: auto;
+    bottom: 1.2rem;
+    max-height: 48svh;
+  }
+  .environment {
+    background-size: cover !important;
+    background-position: center !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .world-controls {
+    position: fixed;
+    top: .4rem;
+    right: .4rem;
+  }
+  .story-panel {
+    top: 3.9rem;
+    max-height: 10.5rem;
+  }
+  .question-panel {
+    max-height: 50svh;
+  }
+}
