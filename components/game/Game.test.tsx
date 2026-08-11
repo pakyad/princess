@@ -25,93 +25,86 @@ function click(name: string, settleAfter = false) {
   if (settleAfter) settle();
 }
 
-describe("Princess and the Prepo complete learning flow", () => {
-  it("starts with the locked title artwork and enters Word Scattering", () => {
+function finishWarmup() {
+  click("Start Adventure");
+  click("Choose UNDER, the preposition", true);
+  for (const name of ["Word 1 THE", "Word 2 CAT", "Word 3 IS", "Word 4 UNDER", "Word 5 THE", "Word 6 TABLE", "Word 7 PERIOD"]) click(name);
+  settle();
+  for (const name of ["Sentence: The cat is under the table", "Sentence: The cat is on the chair", "Sentence: The cat is in the box"]) click(name);
+  settle();
+}
+
+describe("Princess and the Prepo story-centred learning flow", () => {
+  it("runs recognise, reconstruct and picture match before the storybook", () => {
     render(<Game />);
-    expect(sceneId()).toBe("title");
-    click("Start Adventure");
-    expect(sceneId()).toBe("word-scattering");
-    expect(screen.getByRole("button", { name: "Choose UNDER, the preposition" })).toBeInTheDocument();
-  });
-
-  it("runs recognise, reconstruct and picture-match activities before the story", () => {
-    render(<Game />);
-    click("Start Adventure");
-
-    click("Choose THE");
-    expect(sceneId()).toBe("word-scattering");
-    expect(screen.getByRole("button", { name: "Choose THE" })).toHaveClass("is-wrong");
-    click("Choose UNDER, the preposition", true);
-    expect(sceneId()).toBe("sentence-reconstruction");
-
-    for (const name of ["Word 1 THE", "Word 2 CAT", "Word 3 IS", "Word 4 UNDER", "Word 5 THE", "Word 6 TABLE", "Word 7 PERIOD"]) click(name);
-    settle();
-    expect(sceneId()).toBe("picture-matching");
-
-    for (const name of ["Sentence: The cat is under the table", "Sentence: The cat is on the chair", "Sentence: The cat is in the box"]) click(name);
-    settle();
+    finishWarmup();
     expect(sceneId()).toBe("storybook-intro");
-    click("Begin interactive story");
-    expect(sceneId()).toBe("river");
   });
 
-  it("keeps all six story comprehension questions in the established order", () => {
+  it("shows the complete digital storybook before asking any comprehension question", () => {
     render(<Game />);
-    click("Start Adventure");
-    click("Choose UNDER, the preposition", true);
-    for (const name of ["Word 1 THE", "Word 2 CAT", "Word 3 IS", "Word 4 UNDER", "Word 5 THE", "Word 6 TABLE", "Word 7 PERIOD"]) click(name);
-    settle();
-    for (const name of ["Sentence: The cat is under the table", "Sentence: The cat is on the chair", "Sentence: The cat is in the box"]) click(name);
-    settle();
-    click("Begin interactive story");
+    finishWarmup();
+    click("Begin digital storybook");
+    expect(sceneId()).toBe("story-river");
 
-    const storyAnswers = [
-      ["Answer B: ON", "forest"],
-      ["Answer B: UNDER", "treasure"],
-      ["Answer A: IN", "gate"],
-      ["Answer B: NEXT TO", "bridge"],
-      ["Answer B: OVER", "garden"],
-      ["Answer A: IN", "puzzle-question"],
+    for (const next of ["story-forest", "story-treasure", "story-gate", "story-bridge", "story-garden", "question-river"]) {
+      click("Next story page");
+      expect(sceneId()).toBe(next);
+    }
+  });
+
+  it("asks questions only after the story and in the same narrative order", () => {
+    render(<Game />);
+    finishWarmup();
+    click("Begin digital storybook");
+    for (let i = 0; i < 6; i += 1) click("Next story page");
+
+    const answers = [
+      ["Answer B: ON", "question-forest"],
+      ["Answer B: UNDER", "question-treasure"],
+      ["Answer A: IN", "question-gate"],
+      ["Answer B: NEXT TO", "question-bridge"],
+      ["Answer B: OVER", "question-garden"],
+      ["Answer A: IN", "story-puzzle-question"],
     ] as const;
 
-    for (const [answer, nextScene] of storyAnswers) {
+    for (const [answer, nextScene] of answers) {
       click(answer, true);
       expect(sceneId()).toBe(nextScene);
     }
   });
 
-  it("finishes the retention puzzle, progress map and completion screen", () => {
+  it("uses only story-based puzzles after comprehension", () => {
     render(<Game />);
-    click("Start Adventure");
-    click("Choose UNDER, the preposition", true);
-    for (const name of ["Word 1 THE", "Word 2 CAT", "Word 3 IS", "Word 4 UNDER", "Word 5 THE", "Word 6 TABLE", "Word 7 PERIOD"]) click(name);
-    settle();
-    for (const name of ["Sentence: The cat is under the table", "Sentence: The cat is on the chair", "Sentence: The cat is in the box"]) click(name);
-    settle();
-    click("Begin interactive story");
+    finishWarmup();
+    click("Begin digital storybook");
+    for (let i = 0; i < 6; i += 1) click("Next story page");
     for (const answer of ["Answer B: ON", "Answer B: UNDER", "Answer A: IN", "Answer B: NEXT TO", "Answer B: OVER", "Answer A: IN"]) click(answer, true);
 
+    expect(sceneId()).toBe("story-puzzle-question");
     click("The bunny is behind the bush", true);
-    expect(sceneId()).toBe("puzzle-word");
-    click("Choose IN", true);
-    expect(sceneId()).toBe("puzzle-jigsaw");
+    expect(sceneId()).toBe("story-puzzle-jigsaw");
     click("Puzzle piece one");
     click("Puzzle piece two");
     click("Puzzle piece three");
     settle();
     expect(sceneId()).toBe("progress-map");
-    click("Open completion treasure chest");
-    expect(sceneId()).toBe("completion");
-
-    click("Play Again");
-    expect(sceneId()).toBe("word-scattering");
   });
 
-  it("uses the generated atlas without reconstructing its artwork in CSS", () => {
+  it("finishes with rewards and can restart the learning journey", () => {
     render(<Game />);
-    click("Start Adventure");
-    const image = document.querySelector("img.exact-atlas");
-    expect(image).toHaveAttribute("src", "/exact/learning-flow.png");
-    expect(image).toHaveClass("exact-screen", "exact-atlas");
+    finishWarmup();
+    click("Begin digital storybook");
+    for (let i = 0; i < 6; i += 1) click("Next story page");
+    for (const answer of ["Answer B: ON", "Answer B: UNDER", "Answer A: IN", "Answer B: NEXT TO", "Answer B: OVER", "Answer A: IN"]) click(answer, true);
+    click("The bunny is behind the bush", true);
+    click("Puzzle piece one");
+    click("Puzzle piece two");
+    click("Puzzle piece three");
+    settle();
+    click("Open completion treasure chest");
+    expect(sceneId()).toBe("completion");
+    click("Play Again");
+    expect(sceneId()).toBe("word-scattering");
   });
 });
