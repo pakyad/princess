@@ -45,7 +45,7 @@ describe("Game exact-image flow", () => {
     expectOnlyImage("river");
     const correct = screen.getByRole("button", { name: "Answer B: ON" });
     fireEvent.click(correct);
-    expect(correct).toHaveClass("is-correct");
+    expect(screen.getByRole("button", { name: "Answer B: ON" })).toHaveClass("is-correct");
     expectOnlyImage("river");
     act(() => vi.advanceTimersByTime(600));
     expectOnlyImage("forest");
@@ -84,3 +84,4 @@ describe("Game exact-image flow", () => {
     });
   });
 });
+
