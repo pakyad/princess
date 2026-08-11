@@ -44,6 +44,54 @@ button {
   background: transparent;
   color: transparent;
   cursor: pointer;
+  transition: background-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+
+.exact-hotspot:hover {
+  background: rgb(255 255 255 / 12%);
+  box-shadow: inset 0 0 0 3px rgb(255 246 164 / 70%);
+}
+
+.exact-hotspot:active {
+  transform: scale(0.98);
+}
+
+.exact-hotspot.is-wrong {
+  background: rgb(220 38 38 / 32%);
+  box-shadow: inset 0 0 0 4px #ff6b6b;
+  animation: hotspot-shake 280ms ease-in-out;
+}
+
+.exact-hotspot.is-correct {
+  background: rgb(34 197 94 / 30%);
+  box-shadow: inset 0 0 0 4px #76f29a;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes hotspot-shake {
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exact-hotspot {
+    transition: none;
+  }
+
+  .exact-hotspot.is-wrong {
+    animation: none;
+  }
 }
 
 .exact-hotspot:focus-visible {
