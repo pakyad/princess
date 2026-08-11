@@ -1,5 +1,5 @@
-import { Game } from "@/components/game/Game";
+import { ExactPage } from "./exact-page";
 
 export default function Home() {
-  return <Game />;
+  return <ExactPage />;
 }
