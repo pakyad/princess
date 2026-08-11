@@ -15,6 +15,15 @@ const answerHotspot = (label: string, answer: Answer, x: number, y: number, widt
 });
 
 const crop = (x: number, y: number, width: number, height: number): SceneCrop => ({ ...FLOW_SIZE, x, y, width, height });
+const storyCrop = (sourceWidth: number, sourceHeight: number, width: number): SceneCrop => ({ sourceWidth, sourceHeight, x: 0, y: 0, width, height: sourceHeight });
+const storyNext = (width: number, height: number): Hotspot => ({
+  label: "Next story page",
+  x: Math.max(0, width - 82),
+  y: Math.max(0, height - 54),
+  width: 72,
+  height: 44,
+  action: "advance",
+});
 
 export const scenes: readonly SceneDefinition[] = [
   {
@@ -74,19 +83,77 @@ export const scenes: readonly SceneDefinition[] = [
       { label: "Sentence: The cat is in the box", value: "in", x: 150, y: 207, width: 132, height: 60, action: "sequence" },
     ],
   },
+
+  // DIGITAL STORYBOOK — pupils first see the complete journey before any questions.
   {
     id: "storybook-intro",
     image: FLOW_ART,
-    alt: "Interactive Storytelling. Read the story and answer questions based on what happens in the story.",
+    alt: "Digital Storybook. Listen and remember what Princess Prepo does. The questions and puzzle after the story will be based on this journey.",
     width: 438,
     height: 321,
     crop: crop(1084, 86, 438, 321),
-    hotspots: [{ label: "Begin interactive story", x: 340, y: 250, width: 70, height: 54, action: "advance" }],
+    hotspots: [{ label: "Begin digital storybook", x: 340, y: 250, width: 70, height: 54, action: "advance" }],
   },
   {
-    id: "river",
+    id: "story-river",
     image: "/exact/river.png",
-    alt: "Across the River. The princess can walk blank the stones to cross the river. Choices: A, in; B, on; C, under.",
+    alt: "Story page 1. Princess Prepo reaches the river. She walks on the stepping stones to cross safely.",
+    width: 280,
+    height: 322,
+    crop: storyCrop(491, 322, 280),
+    hotspots: [storyNext(280, 322)],
+  },
+  {
+    id: "story-forest",
+    image: "/exact/forest.png",
+    alt: "Story page 2. In the whispering forest, a fallen tree blocks the path. Princess Prepo goes under the tree.",
+    width: 290,
+    height: 322,
+    crop: storyCrop(494, 322, 290),
+    hotspots: [storyNext(290, 322)],
+  },
+  {
+    id: "story-treasure",
+    image: "/exact/treasure.png",
+    alt: "Story page 3. Princess Prepo enters the treasure room and finds the treasure in the chest.",
+    width: 300,
+    height: 303,
+    crop: storyCrop(512, 303, 300),
+    hotspots: [storyNext(300, 303)],
+  },
+  {
+    id: "story-gate",
+    image: "/exact/gate.png",
+    alt: "Story page 4. At the castle, Princess Prepo stands next to the gate.",
+    width: 300,
+    height: 303,
+    crop: storyCrop(491, 303, 300),
+    hotspots: [storyNext(300, 303)],
+  },
+  {
+    id: "story-bridge",
+    image: "/exact/bridge.png",
+    alt: "Story page 5. Princess Prepo continues her journey over the bridge.",
+    width: 300,
+    height: 303,
+    crop: storyCrop(494, 303, 300),
+    hotspots: [storyNext(300, 303)],
+  },
+  {
+    id: "story-garden",
+    image: "/exact/garden.png",
+    alt: "Story page 6. Princess Prepo finally arrives in the magical flower garden.",
+    width: 300,
+    height: 293,
+    crop: storyCrop(512, 293, 300),
+    hotspots: [storyNext(300, 293)],
+  },
+
+  // STORY COMPREHENSION — every answer recalls an event pupils have just seen.
+  {
+    id: "question-river",
+    image: "/exact/river.png",
+    alt: "Story Question 1. How did Princess Prepo cross the river? Choices: in, on, under.",
     width: 491,
     height: 322,
     correct: "on",
@@ -97,9 +164,9 @@ export const scenes: readonly SceneDefinition[] = [
     ],
   },
   {
-    id: "forest",
+    id: "question-forest",
     image: "/exact/forest.png",
-    alt: "Under the Tree. The princess can walk blank the fallen tree. Choices: A, on; B, under; C, next to.",
+    alt: "Story Question 2. Where did Princess Prepo go at the fallen tree? Choices: on, under, next to.",
     width: 494,
     height: 322,
     correct: "under",
@@ -110,9 +177,9 @@ export const scenes: readonly SceneDefinition[] = [
     ],
   },
   {
-    id: "treasure",
+    id: "question-treasure",
     image: "/exact/treasure.png",
-    alt: "In the Treasure Room. The treasure is blank the chest. Choices: A, in; B, on; C, next to.",
+    alt: "Story Question 3. Where was the treasure? Choices: in, on, next to.",
     width: 512,
     height: 303,
     correct: "in",
@@ -123,9 +190,9 @@ export const scenes: readonly SceneDefinition[] = [
     ],
   },
   {
-    id: "gate",
+    id: "question-gate",
     image: "/exact/gate.png",
-    alt: "Next to the Gate. The princess is standing blank the gate. Choices: A, on; B, next to; C, under.",
+    alt: "Story Question 4. Where did Princess Prepo stand at the castle gate? Choices: on, next to, under.",
     width: 491,
     height: 303,
     correct: "next to",
@@ -136,9 +203,9 @@ export const scenes: readonly SceneDefinition[] = [
     ],
   },
   {
-    id: "bridge",
+    id: "question-bridge",
     image: "/exact/bridge.png",
-    alt: "Over the Bridge. The princess can walk blank the bridge. Choices: A, in; B, over; C, under.",
+    alt: "Story Question 5. How did Princess Prepo continue toward the garden? Choices: in, over, under.",
     width: 494,
     height: 303,
     correct: "over",
@@ -149,9 +216,9 @@ export const scenes: readonly SceneDefinition[] = [
     ],
   },
   {
-    id: "garden",
+    id: "question-garden",
     image: "/exact/garden.png",
-    alt: "In the Garden. The princess is walking blank the flowers. Choices: A, in; B, on; C, next to.",
+    alt: "Story Question 6. Where did Princess Prepo arrive at the end of the story? Choices: in, on, next to.",
     width: 512,
     height: 293,
     correct: "in",
@@ -161,10 +228,12 @@ export const scenes: readonly SceneDefinition[] = [
       answerHotspot("Answer C: NEXT TO", "next to", 323, 254, 164, 27),
     ],
   },
+
+  // STORY-BASED PUZZLE GAME — no unrelated cat exercise here.
   {
-    id: "puzzle-question",
+    id: "story-puzzle-question",
     image: FLOW_ART,
-    alt: "Puzzle Game. Where is the bunny? Choose the sentence that correctly describes the bunny behind the bush.",
+    alt: "Story Puzzle. Remember the garden page. Where was the bunny? Choose the sentence that says the bunny was behind the bush.",
     width: 480,
     height: 288,
     crop: crop(13, 421, 480, 288),
@@ -176,24 +245,9 @@ export const scenes: readonly SceneDefinition[] = [
     ],
   },
   {
-    id: "puzzle-word",
+    id: "story-puzzle-jigsaw",
     image: FLOW_ART,
-    alt: "Puzzle Game. Choose the correct word to complete: The cat is in the box.",
-    width: 441,
-    height: 288,
-    crop: crop(506, 421, 441, 288),
-    correct: "in",
-    hotspots: [
-      { label: "Choose ON", value: "on", x: 43, y: 235, width: 59, height: 42, action: "answer" },
-      { label: "Choose UNDER", value: "under", x: 106, y: 235, width: 75, height: 42, action: "answer" },
-      { label: "Choose IN", value: "in", x: 185, y: 235, width: 64, height: 42, action: "answer" },
-      { label: "Choose BEHIND", value: "behind", x: 253, y: 235, width: 84, height: 42, action: "answer" },
-    ],
-  },
-  {
-    id: "puzzle-jigsaw",
-    image: FLOW_ART,
-    alt: "Puzzle Game. Rebuild the castle picture by selecting all three loose puzzle pieces.",
+    alt: "Story Puzzle. Rebuild a picture from Princess Prepo's castle journey by selecting all three loose puzzle pieces.",
     width: 561,
     height: 288,
     crop: crop(961, 421, 561, 288),
@@ -207,7 +261,7 @@ export const scenes: readonly SceneDefinition[] = [
   {
     id: "progress-map",
     image: FLOW_ART,
-    alt: "Your Progress. Word Scattering, Sentence Reconstruction, Picture Matching, Interactive Story and Puzzle Game are complete. Open the treasure chest to finish.",
+    alt: "Your Progress. Word Scattering, Sentence Reconstruction, Picture Matching, Digital Storybook, Story Questions and Story Puzzle are complete. Open the treasure chest to finish.",
     width: 889,
     height: 277,
     crop: crop(13, 724, 889, 277),
@@ -216,7 +270,7 @@ export const scenes: readonly SceneDefinition[] = [
   {
     id: "completion",
     image: FLOW_ART,
-    alt: "Well Done, Princess! You completed all activities and earned three stars. Choose Play Again or Back to Map.",
+    alt: "Well Done, Princess! You remembered the story, answered its questions and completed the story puzzle.",
     width: 606,
     height: 277,
     crop: crop(916, 724, 606, 277),
