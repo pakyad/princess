@@ -1,0 +1,1 @@
+Exact artwork mode intentionally renders the approved generated design board as the visible UI. Interactive HTML controls are transparent overlays only; no CSS/SVG recreation of the approved art is permitted.
