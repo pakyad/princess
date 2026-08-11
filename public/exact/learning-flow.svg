@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff9ef"/><stop offset="1" stop-color="#f8dfcf"/></linearGradient>
+    <linearGradient id="pink" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ef7fa1"/><stop offset="1" stop-color="#d84979"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f6d78c"/><stop offset="1" stop-color="#b97726"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="7" flood-opacity=".18"/></filter>
+    <style>
+      .panel{fill:url(#paper);stroke:#d69b57;stroke-width:3}.ribbon{fill:url(#pink);stroke:#b93c67;stroke-width:2}.title{font:700 26px Georgia,serif;fill:#fff}.h{font:700 24px Georgia,serif;fill:#572132}.body{font:600 17px Arial,sans-serif;fill:#3b2a25}.small{font:600 14px Arial,sans-serif;fill:#5a4135}.chip{fill:#fff5e7;stroke:#d8aa6a;stroke-width:2}.prepo{fill:#ffd2e1;stroke:#dc5a87;stroke-width:2}.btn{fill:url(#pink);stroke:#b63d66;stroke-width:2}.btnText{font:700 17px Arial,sans-serif;fill:#fff}.pink{fill:#d73e72}.gold{fill:#d69731}.slot{fill:none;stroke:#d6a17a;stroke-width:2;stroke-dasharray:7 5}.soft{fill:#fffaf3;stroke:#e2bc86;stroke-width:2}.line{stroke:#cf9c5d;stroke-width:3;fill:none}.star{fill:#ffc84e;stroke:#d3911f;stroke-width:2}.ok{fill:#64aa63}.muted{fill:#f8eddc}.dark{fill:#40271f}
+    </style>
+  </defs>
+  <rect width="1536" height="1024" fill="#f7eee4"/>
+
+  <!-- Word scattering crop 13,86,362,321 -->
+  <g transform="translate(13 86)" filter="url(#shadow)">
+    <rect class="panel" width="362" height="321" rx="18"/>
+    <path d="M34 0h294v54H34z" class="ribbon"/><text x="181" y="35" text-anchor="middle" class="title">Word Scattering</text>
+    <text x="181" y="76" text-anchor="middle" class="small">Find the preposition</text>
+    <circle cx="310" cy="30" r="22" fill="#fff7e7" stroke="#d59b57" stroke-width="2"/><text x="310" y="36" text-anchor="middle" class="small">1/8</text>
+    <g transform="translate(132 82)"><rect class="chip" width="58" height="38" rx="8"/><text x="29" y="25" text-anchor="middle" class="body">The</text></g>
+    <g transform="translate(198 82)"><rect class="chip" width="58" height="38" rx="8"/><text x="29" y="25" text-anchor="middle" class="body">cat</text></g>
+    <g transform="translate(264 82)"><rect class="chip" width="48" height="38" rx="8"/><text x="24" y="25" text-anchor="middle" class="body">is</text></g>
+    <g transform="translate(150 127)"><rect class="prepo" width="87" height="43" rx="8"/><text x="43.5" y="28" text-anchor="middle" class="body pink">under</text></g>
+    <g transform="translate(245 127)"><rect class="chip" width="64" height="43" rx="8"/><text x="32" y="28" text-anchor="middle" class="body">the</text></g>
+    <g transform="translate(170 175)"><rect class="chip" width="80" height="42" rx="8"/><text x="40" y="27" text-anchor="middle" class="body">table</text></g>
+    <rect x="94" y="233" width="198" height="56" rx="12" class="slot"/>
+    <circle cx="320" cy="276" r="28" fill="#fff6df" stroke="#d69b57" stroke-width="2"/><text x="320" y="282" text-anchor="middle" class="small">Hint</text>
+    <circle cx="40" cy="278" r="24" fill="#f8c0d1" stroke="#c8587e" stroke-width="2"/><text x="40" y="285" text-anchor="middle" font-size="20">🔊</text>
+  </g>
+
+  <!-- Sentence reconstruction crop 388,86,374,321 -->
+  <g transform="translate(388 86)" filter="url(#shadow)">
+    <rect class="panel" width="374" height="321" rx="18"/>
+    <path d="M36 0h302v54H36z" class="ribbon"/><text x="187" y="35" text-anchor="middle" class="title">Sentence Reconstruction</text>
+    <text x="187" y="77" text-anchor="middle" class="small">Tap the words in the correct order</text>
+    <circle cx="326" cy="30" r="22" fill="#fff7e7" stroke="#d59b57" stroke-width="2"/><text x="326" y="36" text-anchor="middle" class="small">2/8</text>
+    <g transform="translate(11 84)"><rect class="chip" width="48" height="42" rx="8"/><text x="24" y="27" text-anchor="middle" class="body">The</text></g>
+    <g transform="translate(61 84)"><rect class="chip" width="48" height="42" rx="8"/><text x="24" y="27" text-anchor="middle" class="body">cat</text></g>
+    <g transform="translate(111 84)"><rect class="chip" width="43" height="42" rx="8"/><text x="21" y="27" text-anchor="middle" class="body">is</text></g>
+    <g transform="translate(157 84)"><rect class="prepo" width="59" height="42" rx="8"/><text x="29" y="27" text-anchor="middle" class="body pink">under</text></g>
+    <g transform="translate(219 84)"><rect class="chip" width="47" height="42" rx="8"/><text x="23" y="27" text-anchor="middle" class="body">the</text></g>
+    <g transform="translate(269 84)"><rect class="chip" width="62" height="42" rx="8"/><text x="31" y="27" text-anchor="middle" class="body">table</text></g>
+    <g transform="translate(334 84)"><rect class="chip" width="34" height="42" rx="8"/><text x="17" y="27" text-anchor="middle" class="body">.</text></g>
+    <g transform="translate(14 157)"><rect class="slot" width="42" height="48" rx="8"/><rect x="47" class="slot" width="42" height="48" rx="8"/><rect x="94" class="slot" width="42" height="48" rx="8"/><rect x="141" class="slot" width="42" height="48" rx="8"/><rect x="188" class="slot" width="42" height="48" rx="8"/><rect x="235" class="slot" width="42" height="48" rx="8"/><rect x="282" class="slot" width="42" height="48" rx="8"/></g>
+    <g transform="translate(160 258)"><rect width="86" height="42" rx="10" class="soft"/><text x="43" y="27" text-anchor="middle" class="small">Reset</text></g>
+    <g transform="translate(254 258)"><rect width="96" height="42" rx="10" class="btn"/><text x="48" y="27" text-anchor="middle" class="btnText">Check</text></g>
+  </g>
+
+  <!-- Picture matching crop 775,86,296,321 -->
+  <g transform="translate(775 86)" filter="url(#shadow)">
+    <rect class="panel" width="296" height="321" rx="18"/>
+    <path d="M30 0h236v54H30z" class="ribbon"/><text x="148" y="35" text-anchor="middle" class="title">Picture Matching</text>
+    <text x="148" y="74" text-anchor="middle" class="small">Match each picture to its sentence</text>
+    <g transform="translate(14 86)"><rect width="94" height="58" rx="9" fill="#f5dfb5" stroke="#d69b57" stroke-width="2"/><rect x="16" y="12" width="62" height="10" fill="#9b642d"/><circle cx="47" cy="40" r="14" fill="#b9783c"/></g>
+    <g transform="translate(14 151)"><rect width="94" height="58" rx="9" fill="#f5dfb5" stroke="#d69b57" stroke-width="2"/><rect x="32" y="21" width="30" height="30" fill="#9b642d"/><circle cx="47" cy="18" r="13" fill="#b9783c"/></g>
+    <g transform="translate(14 216)"><rect width="94" height="58" rx="9" fill="#f5dfb5" stroke="#d69b57" stroke-width="2"/><path d="M20 20h54v32H20z" fill="#b87a38"/><circle cx="47" cy="24" r="13" fill="#c38445"/></g>
+    <g transform="translate(150 82)"><rect class="soft" width="132" height="60" rx="10"/><text x="66" y="23" text-anchor="middle" class="small">The cat is</text><text x="66" y="45" text-anchor="middle" class="small pink">on the chair.</text></g>
+    <g transform="translate(150 147)"><rect class="soft" width="132" height="60" rx="10"/><text x="66" y="23" text-anchor="middle" class="small">The cat is</text><text x="66" y="45" text-anchor="middle" class="small pink">under the table.</text></g>
+    <g transform="translate(150 212)"><rect class="soft" width="132" height="60" rx="10"/><text x="66" y="23" text-anchor="middle" class="small">The cat is</text><text x="66" y="45" text-anchor="middle" class="small pink">in the box.</text></g>
+  </g>
+
+  <!-- Storybook intro crop 1084,86,438,321 -->
+  <g transform="translate(1084 86)" filter="url(#shadow)">
+    <rect class="panel" width="438" height="321" rx="18"/>
+    <path d="M58 0h322v54H58z" class="ribbon"/><text x="219" y="35" text-anchor="middle" class="title">Digital Storybook</text>
+    <rect x="18" y="68" width="402" height="218" rx="16" fill="#f5e7cb" stroke="#b98443" stroke-width="3"/>
+    <path d="M219 72v210" stroke="#c59a62" stroke-width="3"/>
+    <rect x="31" y="82" width="174" height="182" rx="10" fill="#dceabf"/>
+    <circle cx="107" cy="161" r="40" fill="#f2b9c7"/><path d="M72 207h70l-17-55H89z" fill="#df4e82"/><circle cx="107" cy="130" r="26" fill="#f0c29f"/>
+    <text x="316" y="105" text-anchor="middle" class="h pink">A Day in the Garden</text>
+    <text x="242" y="145" class="body">Princess Prepo walks <tspan class="pink">in</tspan> the garden.</text>
+    <text x="242" y="179" class="body">She goes <tspan class="pink">under</tspan> the tree.</text>
+    <text x="242" y="213" class="body">She stands <tspan class="pink">next to</tspan> the gate.</text>
+    <text x="242" y="247" class="body">She goes <tspan class="pink">over</tspan> the bridge.</text>
+    <circle cx="365" cy="286" r="22" fill="#f5c0d1" stroke="#c8587e" stroke-width="2"/><text x="365" y="292" text-anchor="middle" font-size="18">▶</text>
+  </g>
+
+  <!-- Puzzle question crop 13,421,480,288 -->
+  <g transform="translate(13 421)" filter="url(#shadow)">
+    <rect class="panel" width="480" height="288" rx="18"/>
+    <path d="M112 0h256v49H112z" class="ribbon"/><text x="240" y="32" text-anchor="middle" class="title">Story Question</text>
+    <rect x="24" y="68" width="188" height="158" rx="14" fill="#dce8b5" stroke="#d69b57" stroke-width="2"/><circle cx="126" cy="150" r="40" fill="#7fa65b"/><circle cx="155" cy="170" r="26" fill="#fff1de"/><circle cx="164" cy="155" r="6" fill="#3c2d28"/>
+    <text x="342" y="72" text-anchor="middle" class="body">Where is the bunny?</text>
+    <g transform="translate(228 96)"><rect class="soft" width="232" height="39" rx="8"/><text x="116" y="25" text-anchor="middle" class="small">The bunny is in front of the bush.</text></g>
+    <g transform="translate(228 138)"><rect class="prepo" width="232" height="39" rx="8"/><text x="116" y="25" text-anchor="middle" class="small pink">The bunny is behind the bush.</text></g>
+    <g transform="translate(228 180)"><rect class="soft" width="232" height="39" rx="8"/><text x="116" y="25" text-anchor="middle" class="small">The bunny is under the bush.</text></g>
+  </g>
+
+  <!-- Puzzle word crop 506,421,441,288 -->
+  <g transform="translate(506 421)" filter="url(#shadow)">
+    <rect class="panel" width="441" height="288" rx="18"/>
+    <path d="M104 0h233v49H104z" class="ribbon"/><text x="220" y="32" text-anchor="middle" class="title">Story Puzzle</text>
+    <text x="220" y="76" text-anchor="middle" class="body">Complete the sentence from the story.</text>
+    <rect x="68" y="98" width="305" height="104" rx="14" class="soft"/>
+    <text x="108" y="153" class="h">The princess is</text><rect x="250" y="121" width="72" height="43" rx="8" class="prepo"/><text x="286" y="149" text-anchor="middle" class="h pink">in</text><text x="330" y="153" class="h">the box.</text>
+    <g transform="translate(43 235)"><rect class="chip" width="59" height="42" rx="8"/><text x="29" y="27" text-anchor="middle" class="body">on</text></g>
+    <g transform="translate(106 235)"><rect class="chip" width="75" height="42" rx="8"/><text x="37" y="27" text-anchor="middle" class="body">under</text></g>
+    <g transform="translate(185 235)"><rect class="prepo" width="64" height="42" rx="8"/><text x="32" y="27" text-anchor="middle" class="body pink">in</text></g>
+    <g transform="translate(253 235)"><rect class="chip" width="84" height="42" rx="8"/><text x="42" y="27" text-anchor="middle" class="body">behind</text></g>
+  </g>
+
+  <!-- Jigsaw crop 961,421,561,288 -->
+  <g transform="translate(961 421)" filter="url(#shadow)">
+    <rect class="panel" width="561" height="288" rx="18"/>
+    <path d="M166 0h229v49H166z" class="ribbon"/><text x="280" y="32" text-anchor="middle" class="title">Puzzle Game</text>
+    <text x="36" y="78" class="body">Rebuild the castle scene.</text>
+    <rect x="118" y="80" width="288" height="180" rx="16" fill="#d8e9bd" stroke="#c88d46" stroke-width="3"/>
+    <path d="M180 230h164V130h-35v-46h-35v46h-34V96h-36v34h-24z" fill="#e0b46f" stroke="#a56e35" stroke-width="3"/><path d="M130 218c55-56 114-70 210-62" class="line"/>
+    <g transform="translate(448 48)"><path d="M0 0h104v73H64v-15c0-12-20-12-20 0v15H0z" fill="#f7dfc6" stroke="#c88d46" stroke-width="3"/></g>
+    <g transform="translate(446 126)"><path d="M0 0h106v72H68v-17c0-12-20-12-20 0v17H0z" fill="#f4cda9" stroke="#c88d46" stroke-width="3"/></g>
+    <g transform="translate(444 204)"><path d="M0 0h108v72H65v-16c0-12-20-12-20 0v16H0z" fill="#efb98f" stroke="#c88d46" stroke-width="3"/></g>
+  </g>
+
+  <!-- Progress crop 13,724,889,277 -->
+  <g transform="translate(13 724)" filter="url(#shadow)">
+    <rect class="panel" width="889" height="277" rx="18"/>
+    <text x="445" y="39" text-anchor="middle" class="h pink">Your Progress</text>
+    <path d="M110 150H760" stroke="#c69251" stroke-width="4" stroke-dasharray="9 8"/>
+    <g transform="translate(75 95)"><circle cx="30" cy="30" r="30" fill="#fff0dd" stroke="#d59b57" stroke-width="2"/><text x="30" y="37" text-anchor="middle" class="h">1</text><text x="30" y="82" text-anchor="middle" class="small">Words</text></g>
+    <g transform="translate(190 95)"><circle cx="30" cy="30" r="30" fill="#fff0dd" stroke="#d59b57" stroke-width="2"/><text x="30" y="37" text-anchor="middle" class="h">2</text><text x="30" y="82" text-anchor="middle" class="small">Sentence</text></g>
+    <g transform="translate(305 95)"><circle cx="30" cy="30" r="30" fill="#fff0dd" stroke="#d59b57" stroke-width="2"/><text x="30" y="37" text-anchor="middle" class="h">3</text><text x="30" y="82" text-anchor="middle" class="small">Match</text></g>
+    <g transform="translate(420 95)"><circle cx="30" cy="30" r="30" fill="#fff0dd" stroke="#d59b57" stroke-width="2"/><text x="30" y="37" text-anchor="middle" class="h">4</text><text x="30" y="82" text-anchor="middle" class="small">Story</text></g>
+    <g transform="translate(535 95)"><circle cx="30" cy="30" r="30" fill="#fff0dd" stroke="#d59b57" stroke-width="2"/><text x="30" y="37" text-anchor="middle" class="h">5</text><text x="30" y="82" text-anchor="middle" class="small">Questions</text></g>
+    <g transform="translate(650 95)"><circle cx="30" cy="30" r="30" fill="#fff0dd" stroke="#d59b57" stroke-width="2"/><text x="30" y="37" text-anchor="middle" class="h">6</text><text x="30" y="82" text-anchor="middle" class="small">Puzzle</text></g>
+    <g transform="translate(748 58)"><rect x="0" y="38" width="118" height="86" rx="10" fill="#9d6429" stroke="#6f421e" stroke-width="3"/><path d="M8 45c14-45 88-45 102 0" fill="#d89b32" stroke="#8d5a23" stroke-width="3"/><rect x="52" y="71" width="18" height="24" rx="3" fill="#ffd35e"/><text x="59" y="154" text-anchor="middle" class="small">Finish</text></g>
+    <g transform="translate(72 212)"><text class="gold" font-size="25">★★★</text></g><g transform="translate(187 212)"><text class="gold" font-size="25">★★★</text></g><g transform="translate(302 212)"><text class="gold" font-size="25">★★★</text></g><g transform="translate(417 212)"><text class="gold" font-size="25">★★★</text></g><g transform="translate(532 212)"><text class="gold" font-size="25">★★★</text></g><g transform="translate(647 212)"><text class="gold" font-size="25">★★★</text></g>
+  </g>
+
+  <!-- Completion crop 916,724,606,277 -->
+  <g transform="translate(916 724)" filter="url(#shadow)">
+    <rect class="panel" width="606" height="277" rx="18"/>
+    <path d="M114 0h378v49H114z" class="ribbon"/><text x="303" y="32" text-anchor="middle" class="title">Well Done, Princess!</text>
+    <circle cx="126" cy="151" r="72" fill="#f2bed0"/><circle cx="126" cy="111" r="34" fill="#efc19d"/><path d="M76 220h100l-18-87h-64z" fill="#df4e82"/><path d="M93 76l33-28 33 28" fill="#ffd24f" stroke="#b77d1b" stroke-width="3"/>
+    <text x="380" y="88" text-anchor="middle" class="h">You completed the story!</text>
+    <g transform="translate(277 105)"><path class="star" d="M38 0l11 25 27 3-20 19 6 27-24-14-24 14 6-27L0 28l27-3z"/><path class="star" transform="translate(78 0)" d="M38 0l11 25 27 3-20 19 6 27-24-14-24 14 6-27L0 28l27-3z"/><path class="star" transform="translate(156 0)" d="M38 0l11 25 27 3-20 19 6 27-24-14-24 14 6-27L0 28l27-3z"/></g>
+    <g transform="translate(170 224)"><rect width="117" height="40" rx="10" class="btn"/><text x="58" y="26" text-anchor="middle" class="btnText">Play Again</text></g>
+    <g transform="translate(318 224)"><rect width="127" height="40" rx="10" class="btn"/><text x="63" y="26" text-anchor="middle" class="btnText">Back to Map</text></g>
+  </g>
+</svg>
