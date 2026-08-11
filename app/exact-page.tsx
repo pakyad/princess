@@ -1,6 +1,5 @@
-import { ExactGame } from "@/components/game/ExactGame";
-import "./exact.css";
+import { Game } from "@/components/game/Game";
 
-export function ExactPage(){
-  return <ExactGame />;
+export function ExactPage() {
+  return <Game />;
 }
