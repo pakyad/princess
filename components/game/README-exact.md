@@ -1,0 +1,1 @@
+Visible UI must remain the approved generated artwork. Do not add reconstructed visual components. Only transparent accessible hotspots may be layered over the artwork.
