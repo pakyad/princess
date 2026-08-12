@@ -142,7 +142,7 @@ export function Game() {
     const isFirst = sceneIndex === storyStart;
     const isLast = sceneIndex === storyEnd;
     return <main className="game-root"><div className="game-canvas" data-scene={scene.id}>
-      <Frame stage="2 / 5" sceneImage={scene.image} soundOn={soundOn} onSound={() => { setSoundOn((value) => !value); speak(scene.storyText); }}>
+      <Frame stage="2 / 5" sceneImage={scene.image} soundOn={soundOn} onSound={() => setSoundOn((value) => !value)}>
         <section className="open-book" aria-label={`Storybook page ${scene.storyPage} of 9`}>
           <div className="book-page book-art"><img src={scene.image} alt=""/><span className="page-tag">{scene.storyPage} / 9</span></div>
           <article className="book-page book-copy">
@@ -179,7 +179,10 @@ export function Game() {
           <h2>Rebuild Princess&apos;s adventure.</h2>
           <p>Tap the pink position words in the same order they appeared in the story.</p>
           <div className="journey-strip">{scene.sequence?.map((value, index) => <div className={`journey-stop${index < puzzleIndex ? " complete" : ""}`} key={value}><span>{index < puzzleIndex ? pretty(value) : index + 1}</span></div>)}</div>
-          <div className="puzzle-words">{scene.hotspots.map((hotspot) => <button key={hotspot.label} aria-label={hotspot.label} className={`puzzle-word${feedbackClass(hotspot.label)}`} disabled={scene.sequence?.indexOf(hotspot.value!)! < puzzleIndex} onClick={() => choosePuzzle(hotspot)}>{pretty(hotspot.value)}</button>)}</div>
+          <div className="puzzle-words">{scene.hotspots.map((hotspot) => {
+            const alreadyPlaced = Boolean(hotspot.value && scene.sequence && scene.sequence.indexOf(hotspot.value) < puzzleIndex);
+            return <button key={hotspot.label} aria-label={hotspot.label} className={`puzzle-word${feedbackClass(hotspot.label)}`} disabled={alreadyPlaced} onClick={() => choosePuzzle(hotspot)}>{pretty(hotspot.value)}</button>;
+          })}</div>
           {feedback?.result === "wrong" && <p className="gentle-hint">Not that one yet. Follow the adventure from the beginning.</p>}
         </section>
       </Frame>
