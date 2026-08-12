@@ -5,104 +5,64 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Game } from "./Game";
 
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
-
 beforeEach(() => vi.useFakeTimers());
-afterEach(() => {
-  cleanup();
-  vi.useRealTimers();
-});
-
-function settle() {
-  act(() => vi.advanceTimersByTime(500));
-}
-
-function sceneId() {
-  return screen.getByRole("main").querySelector("[data-scene]")?.getAttribute("data-scene");
-}
-
-function click(name: string, settleAfter = false) {
-  fireEvent.click(screen.getByRole("button", { name }));
-  if (settleAfter) settle();
-}
+afterEach(() => { cleanup(); vi.useRealTimers(); });
+const settle = () => act(() => vi.advanceTimersByTime(520));
+const sceneId = () => screen.getByRole("main").querySelector("[data-scene]")?.getAttribute("data-scene");
+const click = (name: string, wait = false) => { fireEvent.click(screen.getByRole("button", { name })); if (wait) settle(); };
 
 function finishWarmup() {
   click("Start Adventure");
-  click("Choose UNDER, the preposition", true);
-  for (const name of ["Word 1 THE", "Word 2 CAT", "Word 3 IS", "Word 4 UNDER", "Word 5 THE", "Word 6 TABLE", "Word 7 PERIOD"]) click(name);
+  click("Choose UNDER", true);
+  for (const name of ["Word THE", "Word PRINCESS", "Word IS", "Word UNDER", "Word THE second", "Word TREE", "Word PERIOD"]) click(name);
   settle();
-  for (const name of ["Sentence: The cat is under the table", "Sentence: The cat is on the chair", "Sentence: The cat is in the box"]) click(name);
+  for (const name of ["The princess is UNDER the tree", "The princess is ON the stones", "The princess is IN the garden"]) click(name);
   settle();
 }
 
-describe("Princess and the Prepo story-centred learning flow", () => {
-  it("runs recognise, reconstruct and picture match before the storybook", () => {
+describe("Princess and the Prepo themed learning journey", () => {
+  it("starts with the approved title and enters Word Scattering", () => {
+    render(<Game />);
+    expect(sceneId()).toBe("title");
+    click("Start Adventure");
+    expect(sceneId()).toBe("word-scattering");
+    expect(screen.getByText("WORD SCATTERING")).toBeInTheDocument();
+  });
+
+  it("completes the themed warm-up before opening the storybook", () => {
     render(<Game />);
     finishWarmup();
     expect(sceneId()).toBe("storybook-intro");
+    expect(screen.getByText("DIGITAL STORYBOOK")).toBeInTheDocument();
   });
 
-  it("shows the complete digital storybook before asking any comprehension question", () => {
+  it("shows all nine story pages before questions", () => {
     render(<Game />);
     finishWarmup();
     click("Begin digital storybook");
-    expect(sceneId()).toBe("story-river");
-
-    for (const next of ["story-forest", "story-treasure", "story-gate", "story-bridge", "story-garden", "question-river"]) {
-      click("Next story page");
-      expect(sceneId()).toBe(next);
-    }
+    expect(sceneId()).toBe("story-1");
+    for (let page = 2; page <= 9; page += 1) { click("Next story page"); expect(sceneId()).toBe(`story-${page}`); }
+    click("Next story page");
+    expect(sceneId()).toBe("q1");
   });
 
-  it("asks questions only after the story and in the same narrative order", () => {
+  it("answers the eight story questions and enters the puzzle", () => {
     render(<Game />);
     finishWarmup();
     click("Begin digital storybook");
-    for (let i = 0; i < 6; i += 1) click("Next story page");
-
-    const answers = [
-      ["Answer B: ON", "question-forest"],
-      ["Answer B: UNDER", "question-treasure"],
-      ["Answer A: IN", "question-gate"],
-      ["Answer B: NEXT TO", "question-bridge"],
-      ["Answer B: OVER", "question-garden"],
-      ["Answer A: IN", "story-puzzle-question"],
-    ] as const;
-
-    for (const [answer, nextScene] of answers) {
-      click(answer, true);
-      expect(sceneId()).toBe(nextScene);
-    }
+    for (let i = 0; i < 9; i += 1) click("Next story page");
+    for (const answer of ["Answer in","Answer over","Answer on","Answer in front of","Answer between","Answer behind","Answer next to","Answer at"]) click(answer, true);
+    expect(sceneId()).toBe("story-puzzle");
   });
 
-  it("uses only story-based puzzles after comprehension", () => {
+  it("finishes the story puzzle and can replay", () => {
     render(<Game />);
     finishWarmup();
     click("Begin digital storybook");
-    for (let i = 0; i < 6; i += 1) click("Next story page");
-    for (const answer of ["Answer B: ON", "Answer B: UNDER", "Answer A: IN", "Answer B: NEXT TO", "Answer B: OVER", "Answer A: IN"]) click(answer, true);
-
-    expect(sceneId()).toBe("story-puzzle-question");
-    click("The bunny is behind the bush", true);
-    expect(sceneId()).toBe("story-puzzle-jigsaw");
-    click("Puzzle piece one");
-    click("Puzzle piece two");
-    click("Puzzle piece three");
+    for (let i = 0; i < 9; i += 1) click("Next story page");
+    for (const answer of ["Answer in","Answer over","Answer on","Answer in front of","Answer between","Answer behind","Answer next to","Answer at"]) click(answer, true);
+    for (const value of ["in","over","on","by","in front of","between","behind","next to","at"]) click(`Puzzle ${value}`);
     settle();
-    expect(sceneId()).toBe("progress-map");
-  });
-
-  it("finishes with rewards and can restart the learning journey", () => {
-    render(<Game />);
-    finishWarmup();
-    click("Begin digital storybook");
-    for (let i = 0; i < 6; i += 1) click("Next story page");
-    for (const answer of ["Answer B: ON", "Answer B: UNDER", "Answer A: IN", "Answer B: NEXT TO", "Answer B: OVER", "Answer A: IN"]) click(answer, true);
-    click("The bunny is behind the bush", true);
-    click("Puzzle piece one");
-    click("Puzzle piece two");
-    click("Puzzle piece three");
-    settle();
-    click("Open completion treasure chest");
     expect(sceneId()).toBe("completion");
     click("Play Again");
     expect(sceneId()).toBe("word-scattering");
