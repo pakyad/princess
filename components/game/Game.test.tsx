@@ -7,62 +7,80 @@ import { Game } from "./Game";
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
 beforeEach(() => vi.useFakeTimers());
 afterEach(() => { cleanup(); vi.useRealTimers(); });
-const settle = () => act(() => vi.advanceTimersByTime(650));
+const settle = () => act(() => vi.advanceTimersByTime(850));
 const sceneId = () => screen.getByRole("main").querySelector("[data-scene]")?.getAttribute("data-scene");
 const click = (name: string, wait = false) => { fireEvent.click(screen.getByRole("button", { name })); if (wait) settle(); };
 
-function finishWarmup() {
+function openBook() {
   click("Begin the Adventure");
-  click("Choose UNDER", true);
-  for (const name of ["Word THE", "Word PRINCESS", "Word IS", "Word UNDER", "Word THE second", "Word TREE", "Word PERIOD"]) click(name);
-  click("Check sentence", true);
-  for (const name of ["The princess is UNDER the tree", "The princess is ON the stones", "The princess is IN the garden"]) click(name);
-  settle();
+  click("Let's Try");
+  click("Open Storybook");
 }
 
-describe("Princess learning journey", () => {
-  it("starts with Princess and enters discovery", () => {
+function finishStoryAndQuestions() {
+  openBook();
+  for (let page = 1; page < 9; page += 1) click("Next story page");
+  click("Start Questions");
+  for (const answer of ["Answer in", "Answer over", "Answer on", "Answer by", "Answer in front of", "Answer between", "Answer behind", "Answer next to", "Answer at"]) click(answer, true);
+}
+
+describe("Princess storybook learning journey", () => {
+  it("starts with the title and shows the simple discover lesson", () => {
     render(<Game />);
     expect(sceneId()).toBe("title");
-    expect(screen.getByText("PRINCESS")).toBeInTheDocument();
     click("Begin the Adventure");
-    expect(sceneId()).toBe("word-scattering");
-    expect(screen.getByText("FIND THE MAGIC WORD")).toBeInTheDocument();
+    expect(sceneId()).toBe("discover");
+    expect(screen.getByText("Where is she?")).toBeInTheDocument();
+    expect(screen.getByText("PREPOSITIONS.")).toBeInTheDocument();
   });
 
-  it("supports sentence building and undo before checking", () => {
-    render(<Game />); click("Begin the Adventure"); click("Choose UNDER", true);
-    click("Word THE"); click("Word PRINCESS");
-    click("Remove PRINCESS");
-    expect(screen.getByRole("button", { name: "Word PRINCESS" })).not.toBeDisabled();
-  });
-
-  it("completes the warm-up before opening the storybook", () => {
-    render(<Game />); finishWarmup();
-    expect(sceneId()).toBe("storybook-intro");
-    expect(screen.getByText("THE STORYBOOK")).toBeInTheDocument();
-  });
-
-  it("shows all nine story pages before recall", () => {
-    render(<Game />); finishWarmup(); click("Open Storybook");
+  it("opens a real storybook with backward and forward navigation", () => {
+    render(<Game />);
+    openBook();
     expect(sceneId()).toBe("story-1");
-    for (let page = 2; page <= 9; page += 1) { click("Next story page"); expect(sceneId()).toBe(`story-${page}`); }
-    click("Next story page"); expect(sceneId()).toBe("q1");
+    expect(screen.getByRole("button", { name: "Previous story page" })).toBeDisabled();
+    click("Next story page");
+    expect(sceneId()).toBe("story-2");
+    click("Previous story page");
+    expect(sceneId()).toBe("story-1");
   });
 
-  it("tests all nine story prepositions including BY", () => {
-    render(<Game />); finishWarmup(); click("Open Storybook");
-    for (let i = 0; i < 9; i += 1) click("Next story page");
-    for (const answer of ["Answer in","Answer over","Answer on","Answer by","Answer in front of","Answer between","Answer behind","Answer next to","Answer at"]) click(answer, true);
+  it("shows all nine story pages before questions", () => {
+    render(<Game />);
+    openBook();
+    for (let page = 2; page <= 9; page += 1) {
+      click("Next story page");
+      expect(sceneId()).toBe(`story-${page}`);
+    }
+    click("Start Questions");
+    expect(sceneId()).toBe("q1");
+  });
+
+  it("keeps a wrong recall answer on the same question", () => {
+    render(<Game />);
+    openBook();
+    for (let page = 1; page < 9; page += 1) click("Next story page");
+    click("Start Questions");
+    click("Answer on");
+    expect(sceneId()).toBe("q1");
+    expect(screen.getByText(/Think back to that part/)).toBeInTheDocument();
+    click("Answer in", true);
+    expect(sceneId()).toBe("q2");
+  });
+
+  it("tests every uploaded-story preposition including BY", () => {
+    render(<Game />);
+    finishStoryAndQuestions();
     expect(sceneId()).toBe("story-puzzle");
   });
 
-  it("finishes the final trail and can reopen the story", () => {
-    render(<Game />); finishWarmup(); click("Open Storybook");
-    for (let i = 0; i < 9; i += 1) click("Next story page");
-    for (const answer of ["Answer in","Answer over","Answer on","Answer by","Answer in front of","Answer between","Answer behind","Answer next to","Answer at"]) click(answer, true);
-    for (const value of ["in","over","on","by","in front of","between","behind","next to","at"]) click(`Puzzle ${value}`);
-    settle(); expect(sceneId()).toBe("completion");
-    click("Read the Story Again"); expect(sceneId()).toBe("story-1");
+  it("finishes the puzzle and can reopen the story", () => {
+    render(<Game />);
+    finishStoryAndQuestions();
+    for (const value of ["in", "over", "on", "by", "in front of", "between", "behind", "next to", "at"]) click(`Puzzle ${value}`);
+    settle();
+    expect(sceneId()).toBe("completion");
+    click("Read the Story Again");
+    expect(sceneId()).toBe("story-1");
   });
 });
