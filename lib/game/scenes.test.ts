@@ -1,63 +1,36 @@
 import { describe, expect, it } from "vitest";
 import { scenes } from "./scenes";
 
-describe("locked learning flow registry", () => {
-  it("uses the full retention-first story flow", () => {
+describe("Princess Prepo locked learning flow", () => {
+  it("uses the complete eight-stage retention journey", () => {
     expect(scenes.map(({ id }) => id)).toEqual([
       "title",
       "word-scattering",
       "sentence-reconstruction",
       "picture-matching",
       "storybook-intro",
-      "story-river",
-      "story-forest",
-      "story-treasure",
-      "story-gate",
-      "story-bridge",
-      "story-garden",
-      "question-river",
-      "question-forest",
-      "question-treasure",
-      "question-gate",
-      "question-bridge",
-      "question-garden",
-      "story-puzzle-question",
-      "story-puzzle-jigsaw",
-      "progress-map",
+      "story-1","story-2","story-3","story-4","story-5","story-6","story-7","story-8","story-9",
+      "q1","q2","q3","q4","q5","q6","q7","q8",
+      "story-puzzle",
       "completion",
     ]);
   });
 
-  it("keeps the storybook separate from the questions and puzzles", () => {
+  it("shows the whole story before any comprehension question", () => {
     const ids = scenes.map(({ id }) => id);
-    expect(ids.indexOf("story-garden")).toBeLessThan(ids.indexOf("question-river"));
-    expect(ids.indexOf("question-garden")).toBeLessThan(ids.indexOf("story-puzzle-question"));
-    expect(ids).not.toContain("puzzle-word");
+    expect(ids.indexOf("story-9")).toBeLessThan(ids.indexOf("q1"));
+    expect(ids.indexOf("q8")).toBeLessThan(ids.indexOf("story-puzzle"));
   });
 
-  it("makes every comprehension answer recall an event from the digital storybook", () => {
-    expect(Object.fromEntries(scenes.filter(({ id }) => id.startsWith("question-")).map(({ id, correct }) => [id, correct]))).toEqual({
-      "question-river": "on",
-      "question-forest": "under",
-      "question-treasure": "in",
-      "question-gate": "next to",
-      "question-bridge": "over",
-      "question-garden": "in",
-    });
-  });
-
-  it("keeps the generated supporting artwork locked to the literal atlas", () => {
-    const atlasScenes = scenes.filter(({ image }) => image === "/exact/learning-flow.svg");
-    expect(atlasScenes.map(({ id }) => id)).toEqual([
-      "word-scattering",
-      "sentence-reconstruction",
-      "picture-matching",
-      "storybook-intro",
-      "story-puzzle-question",
-      "story-puzzle-jigsaw",
-      "progress-map",
-      "completion",
+  it("preserves the storybook prepositions in narrative order", () => {
+    expect(scenes.filter(({ id }) => id.startsWith("story-") && id !== "story-puzzle").map(({ preposition }) => preposition)).toEqual([
+      "in", "over", "on", "by", "in front of", "between", "behind", "next to", "at",
     ]);
-    expect(atlasScenes.every(({ crop }) => crop?.sourceWidth === 1536 && crop?.sourceHeight === 1024)).toBe(true);
+  });
+
+  it("makes story questions recall the uploaded story", () => {
+    expect(scenes.filter(({ id }) => /^q\d+$/.test(id)).map(({ correct }) => correct)).toEqual([
+      "in", "over", "on", "in front of", "between", "behind", "next to", "at",
+    ]);
   });
 });
