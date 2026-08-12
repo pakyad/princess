@@ -1,4 +1,4 @@
-export type Answer = "in" | "on" | "under" | "next to" | "over" | "behind";
+export type Answer = "in" | "on" | "under" | "next to" | "over" | "behind" | "by" | "in front of" | "between" | "at";
 
 export type HotspotAction = "start" | "answer" | "advance" | "sequence" | "collect" | "replay" | "next";
 
@@ -24,7 +24,7 @@ export interface SceneCrop {
 
 export interface SceneDefinition {
   readonly id: string;
-  readonly image: string;
+  readonly image?: string;
   readonly alt: string;
   readonly width: number;
   readonly height: number;
@@ -32,13 +32,15 @@ export interface SceneDefinition {
   readonly sequence?: readonly string[];
   readonly collectCount?: number;
   readonly crop?: SceneCrop;
+  readonly storyPage?: number;
+  readonly storyText?: string;
+  readonly preposition?: string;
+  readonly question?: string;
+  readonly choices?: readonly string[];
   readonly hotspots: readonly Hotspot[];
 }
 
-export interface GameState {
-  readonly sceneIndex: number;
-}
-
+export interface GameState { readonly sceneIndex: number; }
 export type GameAction =
   | { readonly type: "START" }
   | { readonly type: "ANSWER"; readonly answer: Answer; readonly correct: Answer }
