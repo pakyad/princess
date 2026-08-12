@@ -2,15 +2,15 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
-describe("exact screen scaling styles", () => {
-  const css = readFileSync(new URL("./globals.css", import.meta.url), "utf8");
+describe("Princess Prepo responsive styles", () => {
+  const css = readFileSync(new URL("./globals.css", import.meta.url), "utf8").replace(/\s+/g, "");
 
-  it("fits the full source image to both viewport dimensions without cropping", () => {
-    expect(css).toContain("width: min(100vw, calc(100svh * var(--screen-ratio)))");
-    expect(css).toContain("aspect-ratio: var(--screen-ratio)");
-    expect(css).toContain("max-height: 100svh");
-    expect(css).toContain("object-fit: contain");
-    expect(css).not.toContain("object-fit: cover");
-    expect(css).not.toContain("background-size: cover");
+  it("keeps the title fitted and the learning journey locked to 16:9", () => {
+    expect(css).toContain(".exact-screen-frame{position:relative;width:min(100vw,calc(100svh*var(--screen-ratio)))");
+    expect(css).toContain(".prepo-frame{width:min(100vw,calc(100svh*16/9));aspect-ratio:16/9");
+    expect(css).toContain(".exact-screen{display:block;width:100%;height:100%;object-fit:contain");
+    expect(css).toContain(".prepo-ribbon");
+    expect(css).toContain(".prepo-scroll");
+    expect(css).toContain(".story-spread");
   });
 });
