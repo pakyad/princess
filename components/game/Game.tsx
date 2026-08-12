@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { scenes } from "@/lib/game/scenes";
 import type { Hotspot } from "@/lib/game/types";
 
@@ -74,7 +74,8 @@ export function Game() {
       case "answer": {
         const value = hotspot.value ?? hotspot.answer;
         if (!value || !scene.correct) return;
-        value === scene.correct ? finishCorrect(hotspot.label) : markWrong(hotspot.label);
+        if (value === scene.correct) finishCorrect(hotspot.label);
+        else markWrong(hotspot.label);
         break;
       }
       case "sequence": {
@@ -87,7 +88,8 @@ export function Game() {
         }
         const next = sequenceIndex + 1;
         setFeedback((current) => ({ label: hotspot.label, result: "correct", attempt: (current?.attempt ?? 0) + 1 }));
-        next >= scene.sequence.length ? finishCorrect(hotspot.label) : setSequenceIndex(next);
+        if (next >= scene.sequence.length) finishCorrect(hotspot.label);
+        else setSequenceIndex(next);
         break;
       }
       case "collect":
@@ -102,7 +104,6 @@ export function Game() {
   }
 
   const feedbackClass = (label: string) => feedback?.label === label ? ` is-${feedback.result}` : "";
-  const completedSequence = useMemo(() => scene.sequence?.slice(0, sequenceIndex) ?? [], [scene.sequence, sequenceIndex]);
 
   if (scene.id === "title") {
     return (
@@ -122,7 +123,7 @@ export function Game() {
       <Shell title="WORD SCATTERING" step="1 / 8" sceneImage={scene.image}>
         <p className="prepo-instruction">Find the <strong>preposition</strong>. It tells us where Princess Prepo is.</p>
         <div className="word-cloud">
-          {scene.hotspots.map((hotspot) => <button key={hotspot.label} className={`word-gem${hotspot.value === "under" ? " target-preposition" : ""}${feedbackClass(hotspot.label)}`} onClick={() => activate(hotspot)}>{pretty(hotspot.value)}</button>)}
+          {scene.hotspots.map((hotspot) => <button aria-label={hotspot.label} key={hotspot.label} className={`word-gem${hotspot.value === "under" ? " target-preposition" : ""}${feedbackClass(hotspot.label)}`} onClick={() => activate(hotspot)}>{pretty(hotspot.value)}</button>)}
         </div>
         <div className="learning-hint">Sentence clue: The princess is <span className="prepo-word">under</span> the tree.</div>
       </Shell>
@@ -135,7 +136,7 @@ export function Game() {
           {scene.sequence?.map((value, index) => <div className={`sentence-slot${index < sequenceIndex ? " filled" : ""}`} key={`${value}-${index}`}>{index < sequenceIndex ? <span className={value === "under" ? "prepo-word" : ""}>{pretty(value)}</span> : ""}</div>)}
         </div>
         <div className="word-bank">
-          {scene.hotspots.map((hotspot) => <button key={hotspot.label} className={`word-tile${hotspot.value === "under" ? " target-preposition" : ""}${feedbackClass(hotspot.label)}`} onClick={() => activate(hotspot)}>{pretty(hotspot.value)}</button>)}
+          {scene.hotspots.map((hotspot) => <button aria-label={hotspot.label} key={hotspot.label} className={`word-tile${hotspot.value === "under" ? " target-preposition" : ""}${feedbackClass(hotspot.label)}`} onClick={() => activate(hotspot)}>{pretty(hotspot.value)}</button>)}
         </div>
       </Shell>
     );
@@ -149,7 +150,7 @@ export function Game() {
       <Shell title="MATCH THE PICTURE" step="3 / 8" sceneImage={scene.image}>
         <p className="prepo-instruction">Match the story picture to the correct sentence. Complete them from left to right.</p>
         <div className="picture-grid">
-          {cards.map(({ image, hotspot, label }) => <button key={hotspot.label} className={`picture-card${feedbackClass(hotspot.label)}`} onClick={() => activate(hotspot)}><img src={image} alt="" /><span>{label}</span></button>)}
+          {cards.map(({ image, hotspot, label }) => <button aria-label={hotspot.label} key={hotspot.label} className={`picture-card${feedbackClass(hotspot.label)}`} onClick={() => activate(hotspot)}><img src={image} alt="" /><span>{label}</span></button>)}
         </div>
         <div className="mini-progress">Matched {sequenceIndex} of 3</div>
       </Shell>
@@ -157,19 +158,19 @@ export function Game() {
   } else if (scene.id === "storybook-intro") {
     content = (
       <Shell title="DIGITAL STORYBOOK" step="4 / 8" sceneImage={scene.image}>
-        <div className="storybook-intro-layout"><div className="storybook-cover"><div className="cover-crown">♛</div><h2>The Princess<br/>and the Prepo</h2><p>Read • Remember • Retell</p></div><div className="storybook-intro-copy"><h2>Read the whole adventure first</h2><p>Look carefully at where each character is. The questions and puzzle come only after the final page.</p><button className="royal-button" onClick={() => activate(scene.hotspots[0])}>Open Storybook</button></div></div>
+        <div className="storybook-intro-layout"><div className="storybook-cover"><div className="cover-crown">♛</div><h2>The Princess<br/>and the Prepo</h2><p>Read • Remember • Retell</p></div><div className="storybook-intro-copy"><h2>Read the whole adventure first</h2><p>Look carefully at where each character is. The questions and puzzle come only after the final page.</p><button aria-label="Begin digital storybook" className="royal-button" onClick={() => activate(scene.hotspots[0])}>Open Storybook</button></div></div>
       </Shell>
     );
   } else if (scene.storyText) {
     content = (
       <Shell title="THE STORY" step={`4 / 8 • Page ${scene.storyPage} of 9`} sceneImage={scene.image}>
-        <div className="story-spread"><div className="story-image"><img src={scene.image} alt="" /></div><div className="story-paper"><div className="story-chapter">Princess Prepo&apos;s Journey</div><p><StoryText text={scene.storyText} preposition={scene.preposition!} /></p><div className="story-focus">Focus word: <span className="prepo-word">{scene.preposition?.toUpperCase()}</span></div><button className="royal-button" onClick={() => activate(scene.hotspots[0])}>{scene.storyPage === 9 ? "Finish Story" : "Turn Page →"}</button></div></div>
+        <div className="story-spread"><div className="story-image"><img src={scene.image} alt="" /></div><div className="story-paper"><div className="story-chapter">Princess Prepo&apos;s Journey</div><p><StoryText text={scene.storyText} preposition={scene.preposition!} /></p><div className="story-focus">Focus word: <span className="prepo-word">{scene.preposition?.toUpperCase()}</span></div><button aria-label="Next story page" className="royal-button" onClick={() => activate(scene.hotspots[0])}>{scene.storyPage === 9 ? "Finish Story" : "Turn Page →"}</button></div></div>
       </Shell>
     );
   } else if (scene.question && scene.id.startsWith("q")) {
     content = (
       <Shell title="STORY QUESTIONS" step="5 / 8" sceneImage={scene.image}>
-        <div className="question-layout"><div className="question-memory"><img src={scene.image} alt="Story memory scene" /><span>Remember what happened in the story.</span></div><div className="question-panel"><div className="question-number">Question {scene.id.slice(1)} of 8</div><h2>{scene.question}</h2><div className="answer-stack">{scene.hotspots.map((hotspot, index) => <button key={hotspot.label} className={`answer-choice${feedbackClass(hotspot.label)}`} onClick={() => activate(hotspot)}><b>{String.fromCharCode(65 + index)}</b><span>{pretty(hotspot.value)}</span></button>)}</div></div></div>
+        <div className="question-layout"><div className="question-memory"><img src={scene.image} alt="Story memory scene" /><span>Remember what happened in the story.</span></div><div className="question-panel"><div className="question-number">Question {scene.id.slice(1)} of 8</div><h2>{scene.question}</h2><div className="answer-stack">{scene.hotspots.map((hotspot, index) => <button aria-label={hotspot.label} key={hotspot.label} className={`answer-choice${feedbackClass(hotspot.label)}`} onClick={() => activate(hotspot)}><b>{String.fromCharCode(65 + index)}</b><span>{pretty(hotspot.value)}</span></button>)}</div></div></div>
       </Shell>
     );
   } else if (scene.id === "story-puzzle") {
@@ -177,13 +178,13 @@ export function Game() {
       <Shell title="STORY PUZZLE" step="6 / 8" sceneImage={scene.image}>
         <p className="prepo-instruction">Can you rebuild the preposition trail from the story in order?</p>
         <div className="trail-slots">{scene.sequence?.map((value, index) => <div key={`${value}-${index}`} className={`trail-slot${index < sequenceIndex ? " filled" : ""}`}>{index < sequenceIndex ? pretty(value) : index + 1}</div>)}</div>
-        <div className="puzzle-bank">{scene.hotspots.map((hotspot) => <button key={hotspot.label} className={`puzzle-token${feedbackClass(hotspot.label)}`} onClick={() => activate(hotspot)}>{pretty(hotspot.value)}</button>)}</div>
+        <div className="puzzle-bank">{scene.hotspots.map((hotspot) => <button aria-label={hotspot.label} key={hotspot.label} className={`puzzle-token${feedbackClass(hotspot.label)}`} onClick={() => activate(hotspot)}>{pretty(hotspot.value)}</button>)}</div>
       </Shell>
     );
   } else {
     content = (
       <Shell title="ADVENTURE COMPLETE" step="8 / 8" sceneImage={scene.image}>
-        <div className="completion-card"><div className="completion-stars">★ ★ ★</div><h2>Well done, Princess!</h2><p>You found the prepositions, rebuilt sentences, matched pictures, remembered the story and completed the puzzle.</p><button className="royal-button" onClick={() => activate(scene.hotspots[0])}>Play Again</button></div>
+        <div className="completion-card"><div className="completion-stars">★ ★ ★</div><h2>Well done, Princess!</h2><p>You found the prepositions, rebuilt sentences, matched pictures, remembered the story and completed the puzzle.</p><button aria-label="Play Again" className="royal-button" onClick={() => activate(scene.hotspots[0])}>Play Again</button></div>
       </Shell>
     );
   }
