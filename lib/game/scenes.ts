@@ -1,47 +1,152 @@
 import type { Hotspot, SceneDefinition } from "./types";
 
-const FLOW_ART = "/exact/learning-flow.svg";
-const FLOW_SIZE = { sourceWidth: 1536, sourceHeight: 1024 } as const;
-const crop = (x:number,y:number,width:number,height:number) => ({...FLOW_SIZE,x,y,width,height});
-const next = (width:number,height:number): Hotspot => ({label:"Next",x:Math.max(0,width-90),y:Math.max(0,height-60),width:80,height:50,action:"advance"});
-const answer = (label:string,value:string,x:number,y:number,width:number,height:number):Hotspot => ({label,value,x,y,width,height,action:"answer"});
-
-const story = (id:string,page:number,text:string,preposition:string):SceneDefinition => ({
-  id, storyPage:page, storyText:text, preposition,
-  alt:`Storybook page ${page}. ${text}`, width:768,height:768,hotspots:[next(768,768)]
+const UI_WIDTH = 1280;
+const UI_HEIGHT = 720;
+const point = (label: string, value: string, action: Hotspot["action"]): Hotspot => ({
+  label,
+  value,
+  action,
+  x: 0,
+  y: 0,
+  width: 1,
+  height: 1,
 });
-const question = (id:string,q:string,correct:string,choices:readonly string[]):SceneDefinition => ({
-  id, question:q, correct, choices, alt:`Story question. ${q}`, width:768,height:768,
-  hotspots: choices.map((choice,i)=>answer(`Answer ${choice}`,choice,128,360+i*82,512,64))
+
+const story = (
+  id: string,
+  page: number,
+  text: string,
+  preposition: string,
+  image: string,
+): SceneDefinition => ({
+  id,
+  storyPage: page,
+  storyText: text,
+  preposition,
+  image,
+  alt: `Storybook page ${page}. ${text}`,
+  width: UI_WIDTH,
+  height: UI_HEIGHT,
+  hotspots: [point("Next story page", "next", "advance")],
+});
+
+const question = (
+  id: string,
+  prompt: string,
+  correct: string,
+  choices: readonly string[],
+  image: string,
+): SceneDefinition => ({
+  id,
+  question: prompt,
+  correct,
+  choices,
+  image,
+  alt: `Story question. ${prompt}`,
+  width: UI_WIDTH,
+  height: UI_HEIGHT,
+  hotspots: choices.map((choice) => point(`Answer ${choice}`, choice, "answer")),
 });
 
 export const scenes: readonly SceneDefinition[] = [
-  {id:"title",image:"/exact/title.png",alt:"Princess and the Prepo. Start Adventure.",width:512,height:322,hotspots:[{label:"Start Adventure",x:51,y:202,width:152,height:35,action:"start"}]},
-  {id:"word-scattering",image:FLOW_ART,alt:"Word Scattering. Find UNDER.",width:362,height:321,crop:crop(13,86,362,321),correct:"under",hotspots:[answer("Choose THE","the",135,75,58,38),answer("Choose CAT","cat",198,75,58,38),answer("Choose IS","is",260,75,53,38),answer("Choose UNDER","under",150,120,87,43),answer("Choose THE second tile","the",245,120,64,43),answer("Choose TABLE","table",170,168,80,42)]},
-  {id:"sentence-reconstruction",image:FLOW_ART,alt:"Sentence Reconstruction. Build The cat is under the table.",width:374,height:321,crop:crop(388,86,374,321),sequence:["the-1","cat","is","under","the-2","table","period"],hotspots:[
-    {label:"THE",value:"the-1",x:11,y:80,width:48,height:42,action:"sequence"},{label:"CAT",value:"cat",x:61,y:80,width:48,height:42,action:"sequence"},{label:"IS",value:"is",x:111,y:80,width:43,height:42,action:"sequence"},{label:"UNDER",value:"under",x:157,y:80,width:59,height:42,action:"sequence"},{label:"THE 2",value:"the-2",x:219,y:80,width:47,height:42,action:"sequence"},{label:"TABLE",value:"table",x:269,y:80,width:62,height:42,action:"sequence"},{label:"PERIOD",value:"period",x:334,y:80,width:34,height:42,action:"sequence"}]},
-  {id:"picture-matching",image:FLOW_ART,alt:"Picture Matching.",width:296,height:321,crop:crop(775,86,296,321),sequence:["under","on","in"],hotspots:[{label:"On",value:"on",x:150,y:76,width:132,height:60,action:"sequence"},{label:"Under",value:"under",x:150,y:141,width:132,height:60,action:"sequence"},{label:"In",value:"in",x:150,y:207,width:132,height:60,action:"sequence"}]},
-  {id:"storybook-intro",image:FLOW_ART,alt:"Digital Storybook. Read the complete story, then answer questions from memory.",width:438,height:321,crop:crop(1084,86,438,321),hotspots:[{label:"Begin Storybook",x:330,y:245,width:90,height:60,action:"advance"}]},
+  {
+    id: "title",
+    image: "/exact/title.png",
+    alt: "Princess and the Prepo. An interactive adventure to learn prepositions in a magical way. Start Adventure.",
+    width: 512,
+    height: 322,
+    hotspots: [{ label: "Start Adventure", x: 51, y: 202, width: 152, height: 35, action: "start" }],
+  },
+  {
+    id: "word-scattering",
+    image: "/exact/forest.png",
+    alt: "Word Scattering. Find the preposition UNDER in the sentence The princess is under the tree.",
+    width: UI_WIDTH,
+    height: UI_HEIGHT,
+    correct: "under",
+    hotspots: [
+      point("Choose THE", "the", "answer"),
+      point("Choose PRINCESS", "princess", "answer"),
+      point("Choose IS", "is", "answer"),
+      point("Choose UNDER", "under", "answer"),
+      point("Choose TREE", "tree", "answer"),
+      point("Choose CASTLE", "castle", "answer"),
+    ],
+  },
+  {
+    id: "sentence-reconstruction",
+    image: "/exact/forest.png",
+    alt: "Sentence Reconstruction. Build: The princess is under the tree.",
+    width: UI_WIDTH,
+    height: UI_HEIGHT,
+    sequence: ["the-1", "princess", "is", "under", "the-2", "tree", "period"],
+    hotspots: [
+      point("Word THE", "the-1", "sequence"),
+      point("Word PRINCESS", "princess", "sequence"),
+      point("Word IS", "is", "sequence"),
+      point("Word UNDER", "under", "sequence"),
+      point("Word THE second", "the-2", "sequence"),
+      point("Word TREE", "tree", "sequence"),
+      point("Word PERIOD", "period", "sequence"),
+    ],
+  },
+  {
+    id: "picture-matching",
+    image: "/exact/garden.png",
+    alt: "Picture Matching. Match Princess Prepo scenes to the correct preposition sentence.",
+    width: UI_WIDTH,
+    height: UI_HEIGHT,
+    sequence: ["under", "on", "in"],
+    hotspots: [
+      point("The princess is UNDER the tree", "under", "sequence"),
+      point("The princess is ON the stones", "on", "sequence"),
+      point("The princess is IN the garden", "in", "sequence"),
+    ],
+  },
+  {
+    id: "storybook-intro",
+    image: "/exact/title.png",
+    alt: "Digital Storybook. Read the whole story first. Questions and puzzles come after the final page.",
+    width: UI_WIDTH,
+    height: UI_HEIGHT,
+    hotspots: [point("Begin digital storybook", "begin", "advance")],
+  },
 
-  story("story-1",1,"Once upon a time, there was a beautiful princess who lived in a tower.","in"),
-  story("story-2",2,"And one day, she decided to escape. She climbed over the wall quietly and ran away.","over"),
-  story("story-3",3,"She walked slowly through the forest and saw a bird sitting on the tree. The bird sang a sweet song.","on"),
-  story("story-4",4,"The princess walked by a small river carefully.","by"),
-  story("story-5",5,"Then, she saw a giant monster standing in front of a dark cave. Its eyes glowed red. ‘ROAR!’ shouted the monster.","in front of"),
-  story("story-6",6,"The princess hid between two big rocks because she felt afraid.","between"),
-  story("story-7",7,"Suddenly, a prince came from behind and attacked the monster. He saved the princess, and she felt happy and safe.","behind"),
-  story("story-8",8,"Then, they continued walking next to each other under the starry night. The stars shone brightly in the sky.","next to"),
-  story("story-9",9,"Finally, they arrived at her castle and lived happily together.","at"),
+  story("story-1", 1, "Once upon a time, there was a beautiful princess who lived in a tower.", "in", "/exact/title.png"),
+  story("story-2", 2, "And one day, she decided to escape. She climbed over the wall quietly and ran away.", "over", "/exact/gate.png"),
+  story("story-3", 3, "She walked slowly through the forest and saw a bird sitting on the tree. The bird sang a sweet song.", "on", "/exact/forest.png"),
+  story("story-4", 4, "The princess walked by a small river carefully.", "by", "/exact/river.png"),
+  story("story-5", 5, "Then, she saw a giant monster standing in front of a dark cave. Its eyes glowed red. ‘ROAR!’ shouted the monster.", "in front of", "/exact/forest.png"),
+  story("story-6", 6, "The princess hid between two big rocks because she felt afraid.", "between", "/exact/forest.png"),
+  story("story-7", 7, "Suddenly, a prince came from behind and attacked the monster. He saved the princess, and she felt happy and safe.", "behind", "/exact/gate.png"),
+  story("story-8", 8, "Then, they continued walking next to each other under the starry night. The stars shone brightly in the sky.", "next to", "/exact/bridge.png"),
+  story("story-9", 9, "Finally, they arrived at her castle and lived happily together.", "at", "/exact/garden.png"),
 
-  question("q1","Where did the princess live?","in",["on","in","under"]),
-  question("q2","How did the princess escape?","over",["behind","over","between"]),
-  question("q3","Where was the bird sitting?","on",["by","on","under"]),
-  question("q4","Where was the monster standing?","in front of",["behind","in front of","next to"]),
-  question("q5","Where did the princess hide?","between",["between","over","at"]),
-  question("q6","Where did the prince come from?","behind",["in front of","behind","by"]),
-  question("q7","How did the prince and princess walk?","next to",["under","next to","between"]),
-  question("q8","Where did they arrive at the end?","at",["by","in","at"]),
+  question("q1", "Where did the princess live?", "in", ["on", "in", "under"], "/exact/title.png"),
+  question("q2", "How did the princess escape?", "over", ["behind", "over", "between"], "/exact/gate.png"),
+  question("q3", "Where was the bird sitting?", "on", ["by", "on", "under"], "/exact/forest.png"),
+  question("q4", "Where was the monster standing?", "in front of", ["behind", "in front of", "next to"], "/exact/forest.png"),
+  question("q5", "Where did the princess hide?", "between", ["between", "over", "at"], "/exact/forest.png"),
+  question("q6", "Where did the prince come from?", "behind", ["in front of", "behind", "by"], "/exact/gate.png"),
+  question("q7", "How did the prince and princess walk?", "next to", ["under", "next to", "between"], "/exact/bridge.png"),
+  question("q8", "Where did they arrive at the end?", "at", ["by", "in", "at"], "/exact/garden.png"),
 
-  {id:"story-puzzle",question:"Put the remembered story prepositions in order.",alt:"Story Puzzle. Rebuild the preposition trail from the story.",width:768,height:768,sequence:["in","over","on","by","in front of","between","behind","next to","at"],hotspots:["in","over","on","by","in front of","between","behind","next to","at"].map((value,i)=>({label:value,value,x:110+(i%3)*190,y:310+Math.floor(i/3)*90,width:170,height:62,action:"sequence"}))},
-  {id:"completion",image:FLOW_ART,alt:"Well done. You completed the learning activities, remembered the digital storybook and solved the story puzzle.",width:606,height:277,crop:crop(916,724,606,277),hotspots:[{label:"Play Again",x:169,y:224,width:117,height:40,action:"replay"},{label:"Back to Map",x:318,y:224,width:127,height:40,action:"next"}]}
+  {
+    id: "story-puzzle",
+    image: "/exact/garden.png",
+    question: "Rebuild the preposition trail from the story.",
+    alt: "Story Puzzle. Tap the remembered prepositions in story order.",
+    width: UI_WIDTH,
+    height: UI_HEIGHT,
+    sequence: ["in", "over", "on", "by", "in front of", "between", "behind", "next to", "at"],
+    hotspots: ["in", "over", "on", "by", "in front of", "between", "behind", "next to", "at"].map((value) => point(`Puzzle ${value}`, value, "sequence")),
+  },
+  {
+    id: "completion",
+    image: "/exact/ending.png",
+    alt: "Well done. You completed Princess and the Prepo.",
+    width: UI_WIDTH,
+    height: UI_HEIGHT,
+    hotspots: [point("Play Again", "replay", "replay"), point("Back to Start", "start", "next")],
+  },
 ] as const;
