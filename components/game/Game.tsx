@@ -59,6 +59,7 @@ export function Game() {
   return (
     <main className="exact-game" aria-label="Princess and the Prepo">
       <div
+        key={scene.id}
         className="exact-screen-frame"
         style={{ "--screen-ratio": scene.width / scene.height } as React.CSSProperties}
       >

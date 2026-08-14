@@ -1,1 +1,0 @@
-export { ExactPage as default } from "./exact-page";
